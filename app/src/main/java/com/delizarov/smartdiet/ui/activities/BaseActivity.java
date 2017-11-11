@@ -3,8 +3,8 @@ package com.delizarov.smartdiet.ui.activities;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.delizarov.smartdiet.android.ApplicationComponent;
-import com.delizarov.smartdiet.android.SmartDietApplication;
+import com.delizarov.smartdiet.device.ApplicationComponent;
+import com.delizarov.smartdiet.device.SmartDietApplication;
 
 public class BaseActivity extends AppCompatActivity {
 
