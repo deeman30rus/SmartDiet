@@ -1,20 +1,19 @@
-package com.delizarov.smartdiet.domain.interactor;
+package com.delizarov.smartdiet.domain.interactor.permissions;
 
 
 import com.delizarov.smartdiet.data.repository.AppRepository;
+import com.delizarov.smartdiet.domain.interactor.permissions.CheckPermissionUseCase;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
-public class CheckInternetAccessPermissionUseCase extends UseCase<Boolean, Void> {
-
-    private final AppRepository mAppRepository;
+public class CheckInternetAccessPermissionUseCase extends CheckPermissionUseCase {
 
     @Inject
     public CheckInternetAccessPermissionUseCase(AppRepository appRepository) {
 
-        mAppRepository = appRepository;
+        super(appRepository);
     }
 
     @Override

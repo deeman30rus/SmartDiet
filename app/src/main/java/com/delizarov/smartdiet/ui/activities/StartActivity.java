@@ -1,21 +1,21 @@
 package com.delizarov.smartdiet.ui.activities;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.widget.Toast;
 
 import com.delizarov.smartdiet.presentation.start.StartPresenter;
 import com.delizarov.smartdiet.presentation.start.StartView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 public class StartActivity extends BaseActivity implements StartView {
 
-    private static final int PERMISSION_REQUEST_INTERNET = 1;
+    private static final int PERMISSIONS_REQUEST = 1;
 
     @Inject
     StartPresenter presenter;
@@ -31,17 +31,27 @@ public class StartActivity extends BaseActivity implements StartView {
     }
 
     @Override
-    public void showInternetPermissionsDialog() {
+    public void showPermissionsDialog(List<String> permissions) {
 
         ActivityCompat.requestPermissions(StartActivity.this,
-                new String[]{Manifest.permission.INTERNET},
-                PERMISSION_REQUEST_INTERNET);
+                permissions.toArray(new String[0]),
+                PERMISSIONS_REQUEST);
+    }
+
+    @Override
+    public void showLoginView() {
+
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        presenter.onRequestPermissionResult();
+        if (requestCode == PERMISSIONS_REQUEST)
+            presenter.onRequestPermissionResult();
     }
 }
