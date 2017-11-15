@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 
+import com.delizarov.smartdiet.domain.models.User;
 import com.delizarov.smartdiet.presentation.start.StartPresenter;
 import com.delizarov.smartdiet.presentation.start.StartView;
 
@@ -45,6 +46,11 @@ public class StartActivity extends BaseActivity implements StartView {
 
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void showDailyMealsView(User user) {
+
     }
 
     @Override

@@ -1,15 +1,15 @@
 package com.delizarov.smartdiet.presentation.start;
 
 
-import com.delizarov.smartdiet.domain.interactor.permissions.CheckInternetAccessPermissionUseCase;
+import com.delizarov.smartdiet.domain.interactor.GetCurrentUserUseCase;
 import com.delizarov.smartdiet.domain.interactor.permissions.GetNotGrantedPermissionsUseCase;
+import com.delizarov.smartdiet.domain.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -17,15 +17,14 @@ public class StartPresenter {
 
     private StartView mView;
 
-    private final CheckInternetAccessPermissionUseCase mCheckInternetAccessPermissionUseCase;
-
     private final GetNotGrantedPermissionsUseCase mGetNotGrantedPermissionsUseCase;
+    private final GetCurrentUserUseCase mGetCurrentUserUseCase;
 
     @Inject
-    public StartPresenter(CheckInternetAccessPermissionUseCase checkInternetAccessPermissionUseCase, GetNotGrantedPermissionsUseCase getNotGrantedPermissionsUseCase) {
+    public StartPresenter(GetNotGrantedPermissionsUseCase getNotGrantedPermissionsUseCase, GetCurrentUserUseCase getCurrentUserUseCase) {
 
-        mCheckInternetAccessPermissionUseCase = checkInternetAccessPermissionUseCase;
         mGetNotGrantedPermissionsUseCase = getNotGrantedPermissionsUseCase;
+        mGetCurrentUserUseCase = getCurrentUserUseCase;
     }
 
     public void attachView(StartView view) {
@@ -70,22 +69,21 @@ public class StartPresenter {
                     @Override
                     public void onComplete() {
 
-                        if (notGrantedPermissions.isEmpty())
-                            mView.showLoginView();
-                        else
+                        if (!notGrantedPermissions.isEmpty()) {
                             mView.showPermissionsDialog(notGrantedPermissions);
+                            return;
+                        }
+
+                        mGetCurrentUserUseCase
+                                .observable()
+                                .subscribe(user -> {
+
+                                    if (user == User.UNATHORIZED_USER)
+                                        mView.showLoginView();
+                                    else
+                                        mView.showDailyMealsView(user);
+                                });
                     }
                 });
-
-//        Observable
-//                .merge(mCheckInternetAccessPermissionUseCase.observable(), Observable.just(true))
-//                .all(isGranted -> isGranted)
-//                .subscribe((isGranted, throwable) -> {
-//
-//                    if (!isGranted)
-//                        mView.showPermissionsDialog(permissions);
-//                    else
-//                        mView.showLoginView();
-//                });
     }
 }
