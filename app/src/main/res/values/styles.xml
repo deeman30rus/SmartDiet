@@ -12,4 +12,8 @@
         <item name="android:windowBackground">@drawable/start_screen_drawable</item>
     </style>
 
+    <style name="LoginScreenTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
 </resources>

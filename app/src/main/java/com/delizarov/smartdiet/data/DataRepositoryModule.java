@@ -1,7 +1,9 @@
 package com.delizarov.smartdiet.data;
 
 import com.delizarov.smartdiet.data.repository.AppRepository;
+import com.delizarov.smartdiet.data.repository.UserRepository;
 import com.delizarov.smartdiet.data.repository.impl.AppRepositoryImpl;
+import com.delizarov.smartdiet.data.repository.impl.UserRepositoryImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,5 +14,10 @@ public class DataRepositoryModule {
     @Provides
     AppRepository provideAppRepository(AppRepositoryImpl appRepository) {
         return appRepository;
+    }
+
+    @Provides
+    UserRepository provideUserRepository(UserRepositoryImpl userRepository) {
+        return userRepository;
     }
 }
