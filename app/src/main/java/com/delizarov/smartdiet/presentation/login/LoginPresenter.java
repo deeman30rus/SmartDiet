@@ -1,6 +1,8 @@
 package com.delizarov.smartdiet.presentation.login;
 
 
+import com.delizarov.smartdiet.domain.models.User;
+
 import javax.inject.Inject;
 
 public class LoginPresenter {
@@ -18,5 +20,15 @@ public class LoginPresenter {
 
     public void onViewCreated() {
         
+    }
+
+    public void onSuccessLogIn(User user) {
+
+        mView.showDailyMeals();
+    }
+
+    public void onFailedLogIn() {
+
+        // TODO: implement when you know what to do
     }
 }

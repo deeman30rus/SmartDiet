@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.delizarov.smartdiet.R;
+import com.delizarov.smartdiet.domain.models.User;
 import com.delizarov.smartdiet.presentation.login.LoginPresenter;
 import com.delizarov.smartdiet.presentation.login.LoginView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -50,7 +51,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
         mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
 
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
+        signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setOnClickListener(view -> {
 
             Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -64,9 +65,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     protected void onStart() {
         super.onStart();
-
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-//        updateUI(account);
     }
 
     @Override
@@ -82,15 +80,25 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
+    @Override
+    public void showDailyMeals() {
+
+        Intent intent = new Intent(getApplicationContext(), IngredientsActivity.class);
+
+        startActivity(intent);
+        finish();
+    }
+
+
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            // Signed in successfully, show authenticated UI.
-//            updateUI(account);
+            presenter.onSuccessLogIn(new User(account.getId(), account.getDisplayName()));
+
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+
+            presenter.onFailedLogIn();
         }
     }
 }
