@@ -1,7 +1,8 @@
-package com.delizarov.smartdiet.device;
+package com.delizarov.smartdiet.android;
 
 
 import com.delizarov.smartdiet.data.DataRepositoryModule;
+import com.delizarov.smartdiet.ui.activities.IngredientsActivity;
 import com.delizarov.smartdiet.ui.activities.LoginActivity;
 import com.delizarov.smartdiet.ui.activities.StartActivity;
 
@@ -23,4 +24,6 @@ public interface ApplicationComponent {
     void inject(StartActivity startActivity);
 
     void inject(LoginActivity loginActivity);
+
+    void inject(IngredientsActivity ingredientsActivity);
 }

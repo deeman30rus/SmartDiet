@@ -1,7 +1,9 @@
-package com.delizarov.smartdiet.device;
+package com.delizarov.smartdiet.android;
 
 
 import android.app.Application;
+
+import com.facebook.stetho.Stetho;
 
 import javax.inject.Inject;
 
@@ -18,6 +20,8 @@ public class SmartDietApplication extends Application {
     public void onCreate() {
 
         super.onCreate();
+
+        Stetho.initializeWithDefaults(this);
 
         initializeInjector();
 

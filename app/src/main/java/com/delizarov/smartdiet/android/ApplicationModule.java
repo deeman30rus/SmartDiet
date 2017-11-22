@@ -1,4 +1,4 @@
-package com.delizarov.smartdiet.device;
+package com.delizarov.smartdiet.android;
 
 
 import android.app.Application;
