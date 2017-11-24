@@ -5,11 +5,13 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity
+@Entity(
+        tableName = "ingredients"
+)
 public class IngredientEntity {
 
-    @PrimaryKey
-    public long Id;
+    @PrimaryKey(autoGenerate = true)
+    public Long Id;
 
     @ColumnInfo(name = "name")
     public String Name;

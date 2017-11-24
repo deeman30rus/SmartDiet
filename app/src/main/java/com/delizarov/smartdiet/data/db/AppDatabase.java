@@ -14,7 +14,7 @@ import com.delizarov.smartdiet.domain.models.Ingredient;
         },
         version = 1
 )
-//@TypeConverters({Converters.class})
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract IngredientDao ingredientDao();

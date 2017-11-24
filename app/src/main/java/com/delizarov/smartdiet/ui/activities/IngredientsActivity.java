@@ -60,4 +60,10 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
         presenter.onCreate();
 
     }
+
+    @Override
+    public void renderIngredient(Ingredient ingredient) {
+
+        mAdapter.add(ingredient);
+    }
 }

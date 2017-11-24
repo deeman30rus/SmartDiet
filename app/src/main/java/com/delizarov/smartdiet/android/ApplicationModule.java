@@ -4,6 +4,8 @@ package com.delizarov.smartdiet.android;
 import android.app.Application;
 import android.content.Context;
 
+import com.delizarov.smartdiet.data.db.AppDatabase;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -20,5 +22,11 @@ public class ApplicationModule {
     Context provideApplicationContext() {
 
         return mApplication;
+    }
+
+    @Provides
+    AppDatabase provideAppDatabase() {
+
+        return ((SmartDietApplication) mApplication).getDb();
     }
 }

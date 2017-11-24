@@ -8,6 +8,8 @@ import com.delizarov.smartdiet.domain.models.Ingredient;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 
 public class GetIngredientsUseCase extends UseCase<Ingredient, Void> {
 
@@ -21,6 +23,8 @@ public class GetIngredientsUseCase extends UseCase<Ingredient, Void> {
 
     @Override
     protected Observable<Ingredient> createObservable(Void aVoid) {
-        return null;
+        return mCookbookRepository
+                .readIngredients()
+                .subscribeOn(Schedulers.newThread());
     }
 }
