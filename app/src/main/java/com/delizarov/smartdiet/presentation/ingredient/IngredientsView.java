@@ -9,4 +9,10 @@ public interface IngredientsView {
     void showIngredientDetails(Ingredient ingredient);
 
     void clearIngredients();
+
+    void updateIngredient(Ingredient ingredient);
+
+    void showIngredientNameEmptyError();
+
+    void addIngredient(Ingredient ingredient);
 }

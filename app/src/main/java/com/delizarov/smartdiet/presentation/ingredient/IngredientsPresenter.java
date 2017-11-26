@@ -1,14 +1,17 @@
 package com.delizarov.smartdiet.presentation.ingredient;
 
 
+import com.delizarov.smartdiet.domain.exceptions.IngredientNameEmptyException;
 import com.delizarov.smartdiet.domain.interactor.ingredients.GetIngredientsUseCase;
 import com.delizarov.smartdiet.domain.interactor.ingredients.SaveIngredientUseCase;
 import com.delizarov.smartdiet.domain.models.Ingredient;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class IngredientsPresenter {
 
@@ -46,6 +49,7 @@ public class IngredientsPresenter {
 
         mGetIngredientDisposable = mGetIngredientsUseCase
                 .observable()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ingredient -> mView.renderIngredient(ingredient));
     }
@@ -60,10 +64,36 @@ public class IngredientsPresenter {
         if (mSaveIngredientDisposable != null)
             mSaveIngredientDisposable.dispose();
 
-        mSaveIngredientDisposable = mSaveIngredientUseCase.observable(instance)
+        mSaveIngredientUseCase
+                .observable(instance)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(this::updateList)
-                .subscribe();
+                .subscribe(new Observer<Ingredient>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Ingredient ingredient) {
+
+                        if (instance.getId() == Ingredient.UNREGISTERED_INGREDIENT_ID)
+                            mView.addIngredient(ingredient);
+                        else
+                            mView.updateIngredient(ingredient);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        if (e instanceof IngredientNameEmptyException)
+                            mView.showIngredientNameEmptyError();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     public void onIngredientItemClicked(Ingredient ingredient) {

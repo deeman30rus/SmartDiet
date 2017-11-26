@@ -5,6 +5,8 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
@@ -14,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -39,6 +42,9 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
 
     @BindView(R.id.add_ingredient)
     FloatingActionButton addIngredient;
+
+    @BindView(R.id.container)
+    ConstraintLayout container;
 
     private IngredientListFragment mIngredientsFragment;
 
@@ -145,6 +151,7 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
             button.setOnClickListener(v -> {
 
                 String name = ingredientNameInput.getText().toString();
+
                 long id = ingredient == null ? Ingredient.UNREGISTERED_INGREDIENT_ID : ingredient.getId();
 
                 presenter.onSaveIngredient(new Ingredient(id, name));
@@ -160,5 +167,24 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
     public void clearIngredients() {
 
         mIngredientsFragment.clearList();
+    }
+
+    @Override
+    public void updateIngredient(Ingredient ingredient) {
+
+        mIngredientsFragment.updateIngredient(ingredient);
+    }
+
+    @Override
+    public void showIngredientNameEmptyError() {
+
+        Snackbar.make(container, "Имя ингридиента не может быть пустым", Snackbar.LENGTH_LONG)
+                .show();
+    }
+
+    @Override
+    public void addIngredient(Ingredient ingredient) {
+
+        mIngredientsFragment.addIngredient(ingredient);
     }
 }
