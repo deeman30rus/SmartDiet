@@ -1,19 +1,26 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="StartScreenTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="StartScreenTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/start_screen_drawable</item>
     </style>
 
-    <style name="LoginScreenTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="LoginScreenTheme" parent="AppTheme">
         <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppSearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="queryBackground">@android:color/transparent</item>
+        <item name="closeIcon">@drawable/icon_close</item>
+        <item name="queryHint">@string/ingredient_search_hint</item>
+        <item name="android:imeActionId">6</item>
     </style>
 
 </resources>

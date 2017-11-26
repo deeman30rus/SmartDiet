@@ -4,7 +4,6 @@ package com.delizarov.smartdiet.ui.viewholders;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.Shape;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -24,6 +23,8 @@ public class IngredientViewHolder extends ViewHolderBase<Ingredient> {
 
     @BindView(R.id.name)
     TextView name;
+
+    private OnItemClickListener mOnItemClickListener;
 
     public IngredientViewHolder(int layoutResource, final ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false));
@@ -45,5 +46,19 @@ public class IngredientViewHolder extends ViewHolderBase<Ingredient> {
         } else if (background instanceof GradientDrawable) {
             ((GradientDrawable) background).setColor(color);
         }
+
+        itemView.setOnClickListener(view -> {
+            if (mOnItemClickListener != null)
+                mOnItemClickListener.onItemClicked(ingredient);
+        });
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+
+        void onItemClicked(Ingredient ingredient);
     }
 }

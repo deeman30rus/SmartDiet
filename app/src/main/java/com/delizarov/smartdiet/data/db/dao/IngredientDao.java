@@ -3,7 +3,9 @@ package com.delizarov.smartdiet.data.db.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.delizarov.smartdiet.data.db.entities.IngredientEntity;
 import com.delizarov.smartdiet.domain.models.Ingredient;
@@ -18,4 +20,7 @@ public interface IngredientDao {
 
     @Insert
     void addNewIngredient(IngredientEntity entity);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void updateIngredient(IngredientEntity entity);
 }

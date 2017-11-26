@@ -24,13 +24,20 @@ public class IngredientListFragment extends BaseFragment {
 
     private Unbinder mUnbinder;
 
+    private IngredientViewHolder.OnItemClickListener mOnItemClickListener;
+
     @BindView(R.id.ingredients)
     RecyclerView ingredients;
 
     private SortedListAdapter<Ingredient> mAdapter = new SortedListAdapter<Ingredient>(Ingredient.class, (i1, i2) -> i1.getName().compareToIgnoreCase(i2.getName())) {
         @Override
         public ViewHolderBase<Ingredient> onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new IngredientViewHolder(R.layout.vh_ingredient, parent);
+
+            IngredientViewHolder viewHolder = new IngredientViewHolder(R.layout.vh_ingredient, parent);
+
+            viewHolder.setOnItemClickListener(mOnItemClickListener);
+
+            return viewHolder;
         }
 
         @Override
@@ -71,4 +78,14 @@ public class IngredientListFragment extends BaseFragment {
 
         return new IngredientListFragment();
     }
+
+    public void clearList() {
+
+        mAdapter.clear();
+    }
+
+    public void setOnItemClickListener(IngredientViewHolder.OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
 }

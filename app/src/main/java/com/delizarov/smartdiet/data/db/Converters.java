@@ -13,7 +13,7 @@ public class Converters {
 
         IngredientEntity entity = new IngredientEntity();
 
-        entity.Id = ingredient.getId();
+        entity.Id = ingredient.getId() == Ingredient.UNREGISTERED_INGREDIENT_ID ? null : ingredient.getId();
         entity.Name = ingredient.getName();
 
         return entity;

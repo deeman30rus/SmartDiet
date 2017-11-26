@@ -56,6 +56,8 @@ public class ColorUtils {
 
     public static int decodeFromString(String str) {
 
-        return COLORTS[str.hashCode() % COLORTS.length];
+        int index = str.hashCode() < 0 ? -str.hashCode() : str.hashCode();
+
+        return COLORTS[index % COLORTS.length];
     }
 }
