@@ -37,7 +37,8 @@ public class Ingredient {
 
         Ingredient toCompare = (Ingredient) obj;
 
-        return mId == toCompare.mId;
+        return mId == toCompare.mId &&
+                mName.equals(toCompare.mName);
     }
 
     @Override

@@ -89,13 +89,23 @@ public class IngredientListFragment extends BaseFragment {
         mOnItemClickListener = onItemClickListener;
     }
 
+    /**
+     *
+     * */
     public void updateIngredient(Ingredient ingredient) {
 
-        int pos = mAdapter.indexOf(ingredient);
+        int size = mAdapter.getItemCount();
 
-        if (pos == SortedList.INVALID_POSITION)
-            return;
+        for (int i = 0; i < size; ++i) {
 
-        mAdapter.updateItemAt(pos, ingredient);
+            Ingredient toReplace = mAdapter.get(i);
+
+            if (toReplace.getId() != ingredient.getId())
+                continue;
+
+            mAdapter.updateItemAt(i, ingredient);
+
+            break;
+        }
     }
 }

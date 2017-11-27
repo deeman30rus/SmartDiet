@@ -41,8 +41,8 @@ public abstract class SortedListAdapter<TItem> extends RecyclerView.Adapter<View
      * @param item2 Элемент списка
      */
     public boolean areItemsTheSame(TItem item1, TItem item2) {
-        // TODO implement
-        return false;
+
+        return item1.equals(item2);
     }
 
     /**
