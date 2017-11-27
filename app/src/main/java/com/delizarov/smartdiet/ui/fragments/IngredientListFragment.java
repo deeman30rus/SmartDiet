@@ -3,7 +3,6 @@ package com.delizarov.smartdiet.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,13 @@ import android.view.ViewGroup;
 import com.delizarov.smartdiet.R;
 import com.delizarov.smartdiet.domain.models.Ingredient;
 import com.delizarov.smartdiet.ui.adapters.SortedListAdapter;
+import com.delizarov.smartdiet.ui.models.Filter;
 import com.delizarov.smartdiet.ui.viewholders.IngredientViewHolder;
 import com.delizarov.smartdiet.ui.viewholders.ViewHolderBase;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +30,10 @@ public class IngredientListFragment extends BaseFragment {
     private Unbinder mUnbinder;
 
     private IngredientViewHolder.OnItemClickListener mOnItemClickListener;
+
+    private Filter<Ingredient> mFilter;
+
+    private List<Ingredient> mIngredients = new ArrayList<>();
 
     @BindView(R.id.ingredients)
     RecyclerView ingredients;
@@ -72,6 +80,7 @@ public class IngredientListFragment extends BaseFragment {
 
     public void addIngredient(Ingredient ingredient) {
 
+        mIngredients.add(ingredient);
         mAdapter.add(ingredient);
     }
 
@@ -89,9 +98,26 @@ public class IngredientListFragment extends BaseFragment {
         mOnItemClickListener = onItemClickListener;
     }
 
+    public void applyFilter(Filter<Ingredient> filter) {
+
+        mFilter = filter;
+
+        filterList();
+    }
+
+    public void clearFilter() {
+
+        mFilter = null;
+
+        filterList();
+    }
+
     /**
+     * Заменяет ингридиент с совпадающим id. В списке будет найден ингридиент с id идентичным параметру
+     * и заменён на значение параметра. Если ингридиент не будет найден, то ничего не произойдёт.
      *
-     * */
+     * @param ingredient - ингридиент, на который необходимо заменить элемент списка
+     */
     public void updateIngredient(Ingredient ingredient) {
 
         int size = mAdapter.getItemCount();
@@ -107,5 +133,22 @@ public class IngredientListFragment extends BaseFragment {
 
             break;
         }
+    }
+
+    private void filterList() {
+
+        if (mFilter == null) {
+            mAdapter.addAll(mIngredients);
+            return;
+        }
+
+        List<Ingredient> filtered = new ArrayList<>();
+
+        for (Ingredient ingredient : mIngredients)
+            if (mFilter.match(ingredient))
+                filtered.add(ingredient);
+
+        mAdapter.clear();
+        mAdapter.addAll(filtered);
     }
 }

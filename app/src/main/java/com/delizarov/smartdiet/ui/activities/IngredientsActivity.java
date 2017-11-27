@@ -25,12 +25,21 @@ import com.delizarov.smartdiet.domain.models.Ingredient;
 import com.delizarov.smartdiet.presentation.ingredient.IngredientsPresenter;
 import com.delizarov.smartdiet.presentation.ingredient.IngredientsView;
 import com.delizarov.smartdiet.ui.fragments.IngredientListFragment;
+import com.delizarov.smartdiet.ui.models.Filter;
 import com.github.clans.fab.FloatingActionButton;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Cancellable;
 
 public class IngredientsActivity extends BaseActivity implements IngredientsView {
 
@@ -49,6 +58,8 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
     private IngredientListFragment mIngredientsFragment;
 
     private SearchManager mSearchManager;
+
+    private Observable<String> mSearchQueryObservable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,7 +99,6 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
     }
 
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
@@ -97,9 +107,37 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
         // search
         MenuItem searchItem = menu.findItem(R.id.search);
 
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        final SearchView searchView = (SearchView) searchItem.getActionView();
 
-        searchView.setSearchableInfo(mSearchManager.getSearchableInfo(getComponentName()));
+        ObservableOnSubscribe<String> searchQuerySubscribe = e -> {
+
+            searchView.setSearchableInfo(mSearchManager.getSearchableInfo(getComponentName()));
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+
+                    e.onNext(query);
+
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+
+                    e.onNext(newText);
+
+                    return false;
+                }
+            });
+        };
+
+        mSearchQueryObservable = Observable
+                .create(searchQuerySubscribe)
+                .debounce(300, TimeUnit.MILLISECONDS);
+
+        mSearchQueryObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(query -> presenter.onSearch(query));
 
         return true;
     }
@@ -186,5 +224,31 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
     public void addIngredient(Ingredient ingredient) {
 
         mIngredientsFragment.addIngredient(ingredient);
+    }
+
+    @Override
+    public void filterListMatchingQuery(String query) {
+
+        mIngredientsFragment.applyFilter(new NameMatchingFilter(query));
+    }
+
+    @Override
+    public void clearFilter() {
+        mIngredientsFragment.clearFilter();
+    }
+
+    private static class NameMatchingFilter implements Filter<Ingredient> {
+
+        private String mNameMatch;
+
+        public NameMatchingFilter(String nameMatch) {
+            mNameMatch = nameMatch;
+        }
+
+        @Override
+        public boolean match(Ingredient ingredient) {
+            return ingredient.getName().contains(mNameMatch);
+        }
+
     }
 }

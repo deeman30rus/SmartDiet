@@ -15,4 +15,8 @@ public interface IngredientsView {
     void showIngredientNameEmptyError();
 
     void addIngredient(Ingredient ingredient);
+
+    void filterListMatchingQuery(String query);
+
+    void clearFilter();
 }

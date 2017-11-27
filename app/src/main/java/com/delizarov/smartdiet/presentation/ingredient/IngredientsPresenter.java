@@ -100,4 +100,12 @@ public class IngredientsPresenter {
 
         mView.showIngredientDetails(ingredient);
     }
+
+    public void onSearch(String query) {
+
+        if (query.isEmpty())
+            mView.clearFilter();
+        else
+            mView.filterListMatchingQuery(query);
+    }
 }
