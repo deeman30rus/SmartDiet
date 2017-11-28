@@ -3,6 +3,7 @@ package com.delizarov.smartdiet.presentation.ingredient;
 
 import com.delizarov.smartdiet.domain.exceptions.IngredientNameEmptyException;
 import com.delizarov.smartdiet.domain.interactor.ingredients.GetIngredientsUseCase;
+import com.delizarov.smartdiet.domain.interactor.ingredients.RemoveIngredientUseCase;
 import com.delizarov.smartdiet.domain.interactor.ingredients.SaveIngredientUseCase;
 import com.delizarov.smartdiet.domain.models.Ingredient;
 
@@ -19,14 +20,18 @@ public class IngredientsPresenter {
 
     private final GetIngredientsUseCase mGetIngredientsUseCase;
     private final SaveIngredientUseCase mSaveIngredientUseCase;
+    private final RemoveIngredientUseCase mRemoveIngredientUseCase;
+
 
     private Disposable mGetIngredientDisposable;
+    private Disposable mRemoveIngredientDisposable;
     private Disposable mSaveIngredientDisposable;
 
     @Inject
-    public IngredientsPresenter(GetIngredientsUseCase getIngredientsUseCase, SaveIngredientUseCase saveIngredientUseCase) {
+    public IngredientsPresenter(GetIngredientsUseCase getIngredientsUseCase, SaveIngredientUseCase saveIngredientUseCase, RemoveIngredientUseCase removeIngredientUseCase) {
         mGetIngredientsUseCase = getIngredientsUseCase;
         mSaveIngredientUseCase = saveIngredientUseCase;
+        mRemoveIngredientUseCase = removeIngredientUseCase;
     }
 
     public void attachView(IngredientsView view) {
@@ -107,5 +112,19 @@ public class IngredientsPresenter {
             mView.clearFilter();
         else
             mView.filterListMatchingQuery(query);
+    }
+
+    public void onIngredientDeleteClicked(final Ingredient ingredient) {
+
+        if (mRemoveIngredientDisposable != null)
+            mRemoveIngredientDisposable.dispose();
+
+        mRemoveIngredientDisposable = mRemoveIngredientUseCase
+                .observable(ingredient)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(result -> {
+                    if (result)
+                        mView.removeIngredient(ingredient);
+                }).subscribe();
     }
 }

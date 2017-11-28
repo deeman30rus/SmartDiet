@@ -9,4 +9,6 @@ public interface CookbookRepository {
     Observable<Ingredient> readIngredients();
 
     boolean saveIngredient(Ingredient ingredient);
+
+    Boolean removeIngredient(Ingredient ingredient);
 }

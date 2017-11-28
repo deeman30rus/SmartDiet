@@ -40,4 +40,14 @@ public class CookbookRepositoryImpl implements CookbookRepository {
 
         return true;
     }
+
+    @Override
+    public Boolean removeIngredient(Ingredient ingredient) {
+
+        IngredientEntity entity = Converters.toIngredientEntity(ingredient);
+
+        mDb.ingredientDao().remove(entity);
+
+        return true;
+    }
 }

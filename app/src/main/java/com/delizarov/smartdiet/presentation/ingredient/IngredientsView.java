@@ -19,4 +19,6 @@ public interface IngredientsView {
     void filterListMatchingQuery(String query);
 
     void clearFilter();
+
+    void removeIngredient(Ingredient ingredient);
 }

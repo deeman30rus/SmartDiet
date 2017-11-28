@@ -81,6 +81,7 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
         mIngredientsFragment = IngredientListFragment.newInstance();
 
         mIngredientsFragment.setOnItemClickListener(ingredient -> presenter.onIngredientItemClicked(ingredient));
+        mIngredientsFragment.setOnItemDeleteClickListener(ingredient -> presenter.onIngredientDeleteClicked(ingredient));
 
         FragmentManager fm = getSupportFragmentManager();
 
@@ -235,6 +236,11 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
     @Override
     public void clearFilter() {
         mIngredientsFragment.clearFilter();
+    }
+
+    @Override
+    public void removeIngredient(Ingredient ingredient) {
+        mIngredientsFragment.removeIngredient(ingredient);
     }
 
     private static class NameMatchingFilter implements Filter<Ingredient> {

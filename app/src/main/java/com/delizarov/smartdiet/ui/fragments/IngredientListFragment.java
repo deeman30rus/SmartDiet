@@ -30,6 +30,7 @@ public class IngredientListFragment extends BaseFragment {
     private Unbinder mUnbinder;
 
     private IngredientViewHolder.OnItemClickListener mOnItemClickListener;
+    private IngredientViewHolder.OnItemDeleteClickListener mOnItemDeleteClickListener;
 
     private Filter<Ingredient> mFilter;
 
@@ -45,6 +46,8 @@ public class IngredientListFragment extends BaseFragment {
             IngredientViewHolder viewHolder = new IngredientViewHolder(R.layout.vh_ingredient, parent);
 
             viewHolder.setOnItemClickListener(mOnItemClickListener);
+
+            viewHolder.setOnItemDeleteClickListener(mOnItemDeleteClickListener);
 
             return viewHolder;
         }
@@ -98,6 +101,10 @@ public class IngredientListFragment extends BaseFragment {
         mOnItemClickListener = onItemClickListener;
     }
 
+    public void setOnItemDeleteClickListener(IngredientViewHolder.OnItemDeleteClickListener onItemDeleteClickListener) {
+        mOnItemDeleteClickListener = onItemDeleteClickListener;
+    }
+
     public void applyFilter(Filter<Ingredient> filter) {
 
         mFilter = filter;
@@ -133,6 +140,11 @@ public class IngredientListFragment extends BaseFragment {
 
             break;
         }
+    }
+
+    public void removeIngredient(Ingredient ingredient) {
+
+        mAdapter.remove(ingredient);
     }
 
     private void filterList() {
