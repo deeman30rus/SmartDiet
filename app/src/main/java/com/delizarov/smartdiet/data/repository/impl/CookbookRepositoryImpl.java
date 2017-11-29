@@ -29,16 +29,18 @@ public class CookbookRepositoryImpl implements CookbookRepository {
     }
 
     @Override
-    public boolean saveIngredient(Ingredient ingredient) {
+    public long saveIngredient(Ingredient ingredient) {
 
         IngredientEntity entity = Converters.toIngredientEntity(ingredient);
 
         if (entity.Id == null)
-            mDb.ingredientDao().addNewIngredient(entity);
-        else
-            mDb.ingredientDao().updateIngredient(entity);
+            return mDb.ingredientDao().addNewIngredient(entity);
 
-        return true;
+        // если не вставка значит update => id не поменялся
+
+        mDb.ingredientDao().updateIngredient(entity);
+
+        return ingredient.getId();
     }
 
     @Override

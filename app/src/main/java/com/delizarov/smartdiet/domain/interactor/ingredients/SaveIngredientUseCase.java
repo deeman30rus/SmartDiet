@@ -34,7 +34,7 @@ public class SaveIngredientUseCase extends UseCase<Ingredient, Ingredient> {
             String name = copy.getName();
             copy.setName(name.replace('\n', ' '));
 
-            mCookbookRepository.saveIngredient(copy);
+            copy.setId(mCookbookRepository.saveIngredient(copy));
 
             e.onNext(copy);
             e.onComplete();

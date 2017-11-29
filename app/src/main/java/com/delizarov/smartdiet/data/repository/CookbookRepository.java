@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 public interface CookbookRepository {
     Observable<Ingredient> readIngredients();
 
-    boolean saveIngredient(Ingredient ingredient);
+    long saveIngredient(Ingredient ingredient);
 
     Boolean removeIngredient(Ingredient ingredient);
 }

@@ -187,7 +187,7 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
 
                 String name = ingredientNameInput.getText().toString();
 
-                long id = ingredient == null ? Ingredient.UNREGISTERED_INGREDIENT_ID : ingredient.getId();
+                long id = (ingredient == null ? Ingredient.UNREGISTERED_INGREDIENT_ID : ingredient.getId());
 
                 presenter.onSaveIngredient(new Ingredient(id, name));
 

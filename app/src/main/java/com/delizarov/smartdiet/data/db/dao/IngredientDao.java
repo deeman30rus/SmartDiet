@@ -20,7 +20,7 @@ public interface IngredientDao {
     List<IngredientEntity> readIngredients();
 
     @Insert
-    void addNewIngredient(IngredientEntity entity);
+    long addNewIngredient(IngredientEntity entity);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateIngredient(IngredientEntity entity);
