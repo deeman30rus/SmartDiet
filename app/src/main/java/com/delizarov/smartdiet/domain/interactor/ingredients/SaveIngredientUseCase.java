@@ -29,12 +29,14 @@ public class SaveIngredientUseCase extends UseCase<Ingredient, Ingredient> {
             if (ingredient.getName().isEmpty())
                 e.onError(new IngredientNameEmptyException());
 
-            String name = ingredient.getName();
-            ingredient.setName(name.replace('\n', ' '));
+            Ingredient copy = new Ingredient(ingredient.getId(), ingredient.getName());
 
-            mCookbookRepository.saveIngredient(ingredient);
+            String name = copy.getName();
+            copy.setName(name.replace('\n', ' '));
 
-            e.onNext(ingredient);
+            mCookbookRepository.saveIngredient(copy);
+
+            e.onNext(copy);
             e.onComplete();
         }).subscribeOn(Schedulers.newThread());
     }

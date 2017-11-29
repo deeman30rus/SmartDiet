@@ -16,7 +16,6 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -35,11 +34,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Cancellable;
 
 public class IngredientsActivity extends BaseActivity implements IngredientsView {
 
@@ -245,15 +241,15 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
 
     private static class NameMatchingFilter implements Filter<Ingredient> {
 
-        private String mNameMatch;
+        private String mNameToMatch;
 
-        public NameMatchingFilter(String nameMatch) {
-            mNameMatch = nameMatch;
+        public NameMatchingFilter(String nameToMatch) {
+            mNameToMatch = nameToMatch;
         }
 
         @Override
         public boolean match(Ingredient ingredient) {
-            return ingredient.getName().contains(mNameMatch);
+            return ingredient.getName().contains(mNameToMatch);
         }
 
     }

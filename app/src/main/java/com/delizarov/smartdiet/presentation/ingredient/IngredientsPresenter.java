@@ -25,7 +25,6 @@ public class IngredientsPresenter {
 
     private Disposable mGetIngredientDisposable;
     private Disposable mRemoveIngredientDisposable;
-    private Disposable mSaveIngredientDisposable;
 
     @Inject
     public IngredientsPresenter(GetIngredientsUseCase getIngredientsUseCase, SaveIngredientUseCase saveIngredientUseCase, RemoveIngredientUseCase removeIngredientUseCase) {
@@ -65,9 +64,6 @@ public class IngredientsPresenter {
     }
 
     public void onSaveIngredient(final Ingredient instance) {
-
-        if (mSaveIngredientDisposable != null)
-            mSaveIngredientDisposable.dispose();
 
         mSaveIngredientUseCase
                 .observable(instance)
