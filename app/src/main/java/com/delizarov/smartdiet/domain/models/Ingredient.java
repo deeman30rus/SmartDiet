@@ -3,6 +3,8 @@ package com.delizarov.smartdiet.domain.models;
 
 public class Ingredient {
 
+    public static final long UNREGISTERED_INGREDIENT_ID = -1;
+
     private long mId;
     private String mName;
 
@@ -35,7 +37,8 @@ public class Ingredient {
 
         Ingredient toCompare = (Ingredient) obj;
 
-        return mId == toCompare.mId;
+        return mId == toCompare.mId &&
+                mName.equals(toCompare.mName);
     }
 
     @Override

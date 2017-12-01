@@ -1,19 +1,16 @@
-package com.delizarov.smartdiet.ui.activities;
+package com.delizarov.smartdiet.ui.fragments;
 
-
-import android.support.v7.app.AppCompatActivity;
 
 import com.delizarov.smartdiet.android.ApplicationComponent;
 import com.delizarov.smartdiet.android.SmartDietApplication;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseFragment extends android.support.v4.app.Fragment {
 
     /**
      * Возвращает общий для приложения объект {@link ApplicationComponent}
      */
     protected ApplicationComponent getApplicationComponent() {
-        SmartDietApplication application = (SmartDietApplication) getApplicationContext();
-
-        return application.getApplicationComponent();
+        SmartDietApplication applicationContext = (SmartDietApplication) getActivity().getApplicationContext();
+        return applicationContext.getApplicationComponent();
     }
 }
