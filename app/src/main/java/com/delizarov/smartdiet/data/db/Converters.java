@@ -3,26 +3,26 @@ package com.delizarov.smartdiet.data.db;
 
 import android.arch.persistence.room.TypeConverter;
 
-import com.delizarov.smartdiet.data.db.entities.IngredientEntity;
-import com.delizarov.smartdiet.domain.models.Ingredient;
+import com.delizarov.smartdiet.data.db.entities.GroceryEntity;
+import com.delizarov.smartdiet.domain.models.Grocery;
 
 public class Converters {
 
     @TypeConverter
-    public static IngredientEntity toIngredientEntity(Ingredient ingredient) {
+    public static GroceryEntity toIngredientEntity(Grocery grocery) {
 
-        IngredientEntity entity = new IngredientEntity();
+        GroceryEntity entity = new GroceryEntity();
 
-        entity.Id = ingredient.getId() == Ingredient.UNREGISTERED_INGREDIENT_ID ? null : ingredient.getId();
-        entity.Name = ingredient.getName();
+        entity.Id = grocery.getId() == Grocery.UNREGISTERED_GROCERY_ID ? null : grocery.getId();
+        entity.Name = grocery.getName();
 
         return entity;
     }
 
     @TypeConverter
-    public static Ingredient toIngredient(IngredientEntity entity) {
+    public static Grocery toIngredient(GroceryEntity entity) {
 
-        return new Ingredient(entity.Id, entity.Name);
+        return new Grocery(entity.Id, entity.Name);
     }
 
 

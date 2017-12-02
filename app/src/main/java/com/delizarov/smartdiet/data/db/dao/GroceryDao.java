@@ -8,23 +8,22 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.delizarov.smartdiet.data.db.entities.IngredientEntity;
-import com.delizarov.smartdiet.domain.models.Ingredient;
+import com.delizarov.smartdiet.data.db.entities.GroceryEntity;
 
 import java.util.List;
 
 @Dao
-public interface IngredientDao {
+public interface GroceryDao {
 
-    @Query("SELECT * FROM ingredients")
-    List<IngredientEntity> readIngredients();
+    @Query("SELECT * FROM groceries")
+    List<GroceryEntity> readGroceries();
 
     @Insert
-    long addNewIngredient(IngredientEntity entity);
+    long addNewGrocery(GroceryEntity entity);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateIngredient(IngredientEntity entity);
+    void updateGrocery(GroceryEntity entity);
 
     @Delete
-    void remove(IngredientEntity entity);
+    void remove(GroceryEntity entity);
 }

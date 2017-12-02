@@ -13,13 +13,13 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.delizarov.smartdiet.R;
-import com.delizarov.smartdiet.domain.models.Ingredient;
+import com.delizarov.smartdiet.domain.models.Grocery;
 import com.delizarov.smartdiet.utils.ColorUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class IngredientViewHolder extends ViewHolderBase<Ingredient> {
+public class GroceryViewHolder extends ViewHolderBase<Grocery> {
 
     @BindView(R.id.item)
     SwipeLayout item;
@@ -39,21 +39,21 @@ public class IngredientViewHolder extends ViewHolderBase<Ingredient> {
     private OnItemClickListener mOnItemClickListener;
     private OnItemDeleteClickListener mOnItemDeleteClickListener;
 
-    public IngredientViewHolder(int layoutResource, final ViewGroup parent) {
+    public GroceryViewHolder(int layoutResource, final ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false));
 
         ButterKnife.bind(this, itemView);
     }
 
     @Override
-    public void bind(Ingredient ingredient) {
+    public void bind(Grocery grocery) {
 
         item.setShowMode(SwipeLayout.ShowMode.PullOut);
         item.addDrag(SwipeLayout.DragEdge.Left, delete);
 
-        name.setText(ingredient.getName());
+        name.setText(grocery.getName());
 
-        int color = ColorUtils.decodeFromString(ingredient.getName());
+        int color = ColorUtils.decodeFromString(grocery.getName());
 
         Drawable background = marker.getBackground();
 
@@ -65,12 +65,12 @@ public class IngredientViewHolder extends ViewHolderBase<Ingredient> {
 
         itemContainer.setOnClickListener(view -> {
             if (mOnItemClickListener != null)
-                mOnItemClickListener.onItemClicked(ingredient);
+                mOnItemClickListener.onItemClicked(grocery);
         });
 
         delete.setOnClickListener(view -> {
             if (mOnItemDeleteClickListener != null)
-                mOnItemDeleteClickListener.onItemDeleteClicked(ingredient);
+                mOnItemDeleteClickListener.onItemDeleteClicked(grocery);
         });
     }
 
@@ -84,11 +84,11 @@ public class IngredientViewHolder extends ViewHolderBase<Ingredient> {
 
     public interface OnItemClickListener {
 
-        void onItemClicked(Ingredient ingredient);
+        void onItemClicked(Grocery grocery);
     }
 
     public interface OnItemDeleteClickListener {
 
-        void onItemDeleteClicked(Ingredient ingredient);
+        void onItemDeleteClicked(Grocery grocery);
     }
 }

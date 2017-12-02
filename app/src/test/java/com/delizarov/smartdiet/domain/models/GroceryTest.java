@@ -7,7 +7,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertTrue;
 
-public class IngredientTest {
+public class GroceryTest {
 
     @Test
     public void equalsTest() {
@@ -18,13 +18,13 @@ public class IngredientTest {
         String name_1 = "ingredient";
         String name_2 = "ingredient2";
 
-        Ingredient expected = new Ingredient(id_1, name_1);
+        Grocery expected = new Grocery(id_1, name_1);
 
-        Ingredient eq = new Ingredient(id_1, name_1);
+        Grocery eq = new Grocery(id_1, name_1);
 
-        Ingredient withOtherId = new Ingredient(id_2, name_1);
-        Ingredient withOtherName = new Ingredient(id_2, name_1);
-        Ingredient completelyDifferent = new Ingredient(id_2, name_2);
+        Grocery withOtherId = new Grocery(id_2, name_1);
+        Grocery withOtherName = new Grocery(id_2, name_1);
+        Grocery completelyDifferent = new Grocery(id_2, name_2);
 
         assertEquals(expected, eq);
 

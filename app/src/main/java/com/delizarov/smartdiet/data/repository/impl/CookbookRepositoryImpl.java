@@ -3,9 +3,9 @@ package com.delizarov.smartdiet.data.repository.impl;
 
 import com.delizarov.smartdiet.data.db.AppDatabase;
 import com.delizarov.smartdiet.data.db.Converters;
-import com.delizarov.smartdiet.data.db.entities.IngredientEntity;
+import com.delizarov.smartdiet.data.db.entities.GroceryEntity;
 import com.delizarov.smartdiet.data.repository.CookbookRepository;
-import com.delizarov.smartdiet.domain.models.Ingredient;
+import com.delizarov.smartdiet.domain.models.Grocery;
 
 import javax.inject.Inject;
 
@@ -21,32 +21,32 @@ public class CookbookRepositoryImpl implements CookbookRepository {
     }
 
     @Override
-    public Observable<Ingredient> readIngredients() {
+    public Observable<Grocery> readGroceries() {
 
         return Observable
-                .defer(() -> Observable.fromIterable(mDb.ingredientDao().readIngredients()))
+                .defer(() -> Observable.fromIterable(mDb.ingredientDao().readGroceries()))
                 .map(Converters::toIngredient);
     }
 
     @Override
-    public long saveIngredient(Ingredient ingredient) {
+    public long saveGrocery(Grocery grocery) {
 
-        IngredientEntity entity = Converters.toIngredientEntity(ingredient);
+        GroceryEntity entity = Converters.toIngredientEntity(grocery);
 
         if (entity.Id == null)
-            return mDb.ingredientDao().addNewIngredient(entity);
+            return mDb.ingredientDao().addNewGrocery(entity);
 
         // если не вставка значит update => id не поменялся
 
-        mDb.ingredientDao().updateIngredient(entity);
+        mDb.ingredientDao().updateGrocery(entity);
 
-        return ingredient.getId();
+        return grocery.getId();
     }
 
     @Override
-    public Boolean removeIngredient(Ingredient ingredient) {
+    public Boolean removeGrocery(Grocery grocery) {
 
-        IngredientEntity entity = Converters.toIngredientEntity(ingredient);
+        GroceryEntity entity = Converters.toIngredientEntity(grocery);
 
         mDb.ingredientDao().remove(entity);
 

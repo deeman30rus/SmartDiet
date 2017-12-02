@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="IngredientsToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="GroceriesToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="searchViewStyle">@style/AppSearchViewStyle</item>
     </style>
 

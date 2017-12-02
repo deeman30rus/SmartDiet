@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">SmartDiet</string>
-    <string name="search_ingredient">Ингридиент</string>
+    <string name="search_grocery">Ингридиент</string>
 
-    <string name="ingredient_name">Ингредиент</string>
+    <string name="grocery_name">Ингредиент</string>
 
-    <string name="ingredient_search_hint">@string/ingredient_name</string>
-    <string name="dialog_ingredient_details_name">Название</string>
-    <string name="dialog_ingredient_details_title">Ингредиент</string>
-    <string name="dialog_ingredient_details_positive_button_text">Сохранить</string>
-    <string name="activity_ingredients_title">Ингредиенты</string>
+    <string name="grocery_search_hint">@string/grocery_name</string>
+    <string name="dialog_grocery_details_name">Название</string>
+    <string name="dialog_grocery_details_title">Ингредиент</string>
+    <string name="dialog_grocery_details_positive_button_text">Сохранить</string>
+    <string name="activity_grocery_title">Ингредиенты</string>
 </resources>

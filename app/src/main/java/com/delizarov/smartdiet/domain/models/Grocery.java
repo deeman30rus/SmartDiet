@@ -1,14 +1,14 @@
 package com.delizarov.smartdiet.domain.models;
 
 
-public class Ingredient {
+public class Grocery {
 
-    public static final long UNREGISTERED_INGREDIENT_ID = -1;
+    public static final long UNREGISTERED_GROCERY_ID = -1;
 
     private long mId;
     private String mName;
 
-    public Ingredient(long id, String name) {
+    public Grocery(long id, String name) {
         mId = id;
         mName = name;
     }
@@ -32,10 +32,10 @@ public class Ingredient {
     @Override
     public boolean equals(Object obj) {
 
-        if (obj == null || !(obj instanceof Ingredient))
+        if (obj == null || !(obj instanceof Grocery))
             return false;
 
-        Ingredient toCompare = (Ingredient) obj;
+        Grocery toCompare = (Grocery) obj;
 
         return mId == toCompare.mId &&
                 mName.equals(toCompare.mName);

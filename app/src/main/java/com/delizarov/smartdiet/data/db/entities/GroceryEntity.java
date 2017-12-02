@@ -6,9 +6,9 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(
-        tableName = "ingredients"
+        tableName = "groceries"
 )
-public class IngredientEntity {
+public class GroceryEntity {
 
     @PrimaryKey(autoGenerate = true)
     public Long Id;

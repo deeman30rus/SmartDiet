@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.delizarov.smartdiet.R;
-import com.delizarov.smartdiet.domain.models.Ingredient;
+import com.delizarov.smartdiet.domain.models.Grocery;
 import com.delizarov.smartdiet.ui.adapters.SortedListAdapter;
 import com.delizarov.smartdiet.ui.models.Filter;
-import com.delizarov.smartdiet.ui.viewholders.IngredientViewHolder;
+import com.delizarov.smartdiet.ui.viewholders.GroceryViewHolder;
 import com.delizarov.smartdiet.ui.viewholders.ViewHolderBase;
 
 import java.util.ArrayList;
@@ -23,27 +23,27 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class IngredientListFragment extends BaseFragment {
+public class GroceryListFragment extends BaseFragment {
 
     public static final String TAG = "IngredientListFragmentTag";
 
     private Unbinder mUnbinder;
 
-    private IngredientViewHolder.OnItemClickListener mOnItemClickListener;
-    private IngredientViewHolder.OnItemDeleteClickListener mOnItemDeleteClickListener;
+    private GroceryViewHolder.OnItemClickListener mOnItemClickListener;
+    private GroceryViewHolder.OnItemDeleteClickListener mOnItemDeleteClickListener;
 
-    private Filter<Ingredient> mFilter;
+    private Filter<Grocery> mFilter;
 
-    private List<Ingredient> mIngredients = new ArrayList<>();
+    private List<Grocery> mGroceries = new ArrayList<>();
 
     @BindView(R.id.ingredients)
     RecyclerView ingredients;
 
-    private SortedListAdapter<Ingredient> mAdapter = new SortedListAdapter<Ingredient>(Ingredient.class, (i1, i2) -> i1.getName().compareToIgnoreCase(i2.getName())) {
+    private SortedListAdapter<Grocery> mAdapter = new SortedListAdapter<Grocery>(Grocery.class, (i1, i2) -> i1.getName().compareToIgnoreCase(i2.getName())) {
         @Override
-        public ViewHolderBase<Ingredient> onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolderBase<Grocery> onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            IngredientViewHolder viewHolder = new IngredientViewHolder(R.layout.vh_ingredient, parent);
+            GroceryViewHolder viewHolder = new GroceryViewHolder(R.layout.vh_ingredient, parent);
 
             viewHolder.setOnItemClickListener(mOnItemClickListener);
 
@@ -53,7 +53,7 @@ public class IngredientListFragment extends BaseFragment {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolderBase<Ingredient> holder, int position) {
+        public void onBindViewHolder(ViewHolderBase<Grocery> holder, int position) {
 
             holder.bind(get(position));
         }
@@ -81,15 +81,15 @@ public class IngredientListFragment extends BaseFragment {
         mUnbinder.unbind();
     }
 
-    public void addIngredient(Ingredient ingredient) {
+    public void addIngredient(Grocery grocery) {
 
-        mIngredients.add(ingredient);
-        mAdapter.add(ingredient);
+        mGroceries.add(grocery);
+        mAdapter.add(grocery);
     }
 
-    public static IngredientListFragment newInstance() {
+    public static GroceryListFragment newInstance() {
 
-        return new IngredientListFragment();
+        return new GroceryListFragment();
     }
 
     public void clearList() {
@@ -97,15 +97,15 @@ public class IngredientListFragment extends BaseFragment {
         mAdapter.clear();
     }
 
-    public void setOnItemClickListener(IngredientViewHolder.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(GroceryViewHolder.OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
-    public void setOnItemDeleteClickListener(IngredientViewHolder.OnItemDeleteClickListener onItemDeleteClickListener) {
+    public void setOnItemDeleteClickListener(GroceryViewHolder.OnItemDeleteClickListener onItemDeleteClickListener) {
         mOnItemDeleteClickListener = onItemDeleteClickListener;
     }
 
-    public void applyFilter(Filter<Ingredient> filter) {
+    public void applyFilter(Filter<Grocery> filter) {
 
         mFilter = filter;
 
@@ -123,42 +123,42 @@ public class IngredientListFragment extends BaseFragment {
      * Заменяет ингридиент с совпадающим id. В списке будет найден ингридиент с id идентичным параметру
      * и заменён на значение параметра. Если ингридиент не будет найден, то ничего не произойдёт.
      *
-     * @param ingredient - ингридиент, на который необходимо заменить элемент списка
+     * @param grocery - ингридиент, на который необходимо заменить элемент списка
      */
-    public void updateIngredient(Ingredient ingredient) {
+    public void updateIngredient(Grocery grocery) {
 
         int size = mAdapter.getItemCount();
 
         for (int i = 0; i < size; ++i) {
 
-            Ingredient toReplace = mAdapter.get(i);
+            Grocery toReplace = mAdapter.get(i);
 
-            if (toReplace.getId() != ingredient.getId())
+            if (toReplace.getId() != grocery.getId())
                 continue;
 
-            mAdapter.updateItemAt(i, ingredient);
+            mAdapter.updateItemAt(i, grocery);
 
             break;
         }
     }
 
-    public void removeIngredient(Ingredient ingredient) {
+    public void removeIngredient(Grocery grocery) {
 
-        mAdapter.remove(ingredient);
+        mAdapter.remove(grocery);
     }
 
     private void filterList() {
 
         if (mFilter == null) {
-            mAdapter.addAll(mIngredients);
+            mAdapter.addAll(mGroceries);
             return;
         }
 
-        List<Ingredient> filtered = new ArrayList<>();
+        List<Grocery> filtered = new ArrayList<>();
 
-        for (Ingredient ingredient : mIngredients)
-            if (mFilter.match(ingredient))
-                filtered.add(ingredient);
+        for (Grocery grocery : mGroceries)
+            if (mFilter.match(grocery))
+                filtered.add(grocery);
 
         mAdapter.clear();
         mAdapter.addAll(filtered);

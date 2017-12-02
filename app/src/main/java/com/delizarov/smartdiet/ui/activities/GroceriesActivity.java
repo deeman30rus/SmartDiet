@@ -20,10 +20,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.delizarov.smartdiet.R;
-import com.delizarov.smartdiet.domain.models.Ingredient;
-import com.delizarov.smartdiet.presentation.ingredient.IngredientsPresenter;
-import com.delizarov.smartdiet.presentation.ingredient.IngredientsView;
-import com.delizarov.smartdiet.ui.fragments.IngredientListFragment;
+import com.delizarov.smartdiet.domain.models.Grocery;
+import com.delizarov.smartdiet.presentation.grocery.GroceriesPresenter;
+import com.delizarov.smartdiet.presentation.grocery.GroceriesView;
+import com.delizarov.smartdiet.ui.fragments.GroceryListFragment;
 import com.delizarov.smartdiet.ui.models.Filter;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -37,21 +37,21 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class IngredientsActivity extends BaseActivity implements IngredientsView {
+public class GroceriesActivity extends BaseActivity implements GroceriesView {
 
     @Inject
-    IngredientsPresenter presenter;
+    GroceriesPresenter presenter;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.add_ingredient)
-    FloatingActionButton addIngredient;
+    @BindView(R.id.add_grocery)
+    FloatingActionButton addGrocery;
 
     @BindView(R.id.container)
     ConstraintLayout container;
 
-    private IngredientListFragment mIngredientsFragment;
+    private GroceryListFragment mGroceriesFragment;
 
     private SearchManager mSearchManager;
 
@@ -63,35 +63,35 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
 
         setContentView(R.layout.activity_ingredients);
 
-        getApplicationComponent().inject(IngredientsActivity.this);
+        getApplicationComponent().inject(GroceriesActivity.this);
 
-        ButterKnife.bind(IngredientsActivity.this);
+        ButterKnife.bind(GroceriesActivity.this);
 
         // toolbar
 
-        toolbar.setTitle(R.string.activity_ingredients_title);
+        toolbar.setTitle(R.string.activity_grocery_title);
 
         setSupportActionBar(toolbar);
 
         // ingredients list
-        mIngredientsFragment = IngredientListFragment.newInstance();
+        mGroceriesFragment = GroceryListFragment.newInstance();
 
-        mIngredientsFragment.setOnItemClickListener(ingredient -> presenter.onIngredientItemClicked(ingredient));
-        mIngredientsFragment.setOnItemDeleteClickListener(ingredient -> presenter.onIngredientDeleteClicked(ingredient));
+        mGroceriesFragment.setOnItemClickListener(ingredient -> presenter.onGroceryItemClicked(ingredient));
+        mGroceriesFragment.setOnItemDeleteClickListener(ingredient -> presenter.onGroceryDeleteClicked(ingredient));
 
         FragmentManager fm = getSupportFragmentManager();
 
         fm.beginTransaction()
-                .replace(R.id.ingredients_list, mIngredientsFragment, IngredientListFragment.TAG)
+                .replace(R.id.groceries_list, mGroceriesFragment, GroceryListFragment.TAG)
                 .commit();
 
         mSearchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
         //
 
-        addIngredient.setOnClickListener(v -> presenter.onAddButtonClicked());
+        addGrocery.setOnClickListener(v -> presenter.onAddButtonClicked());
 
-        presenter.attachView(IngredientsActivity.this);
+        presenter.attachView(GroceriesActivity.this);
         presenter.onCreate();
     }
 
@@ -140,22 +140,22 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
     }
 
     @Override
-    public void renderIngredient(Ingredient ingredient) {
+    public void renderGrocery(Grocery grocery) {
 
-        mIngredientsFragment.addIngredient(ingredient);
+        mGroceriesFragment.addIngredient(grocery);
     }
 
     @Override
-    public void showIngredientDetails(Ingredient ingredient) {
+    public void showGroceryDetails(Grocery grocery) {
 
-        String ingredientName = ingredient == null ? "" : ingredient.getName();
+        String ingredientName = grocery == null ? "" : grocery.getName();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(IngredientsActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(GroceriesActivity.this);
 
         final AlertDialog alertDialog = builder
-                .setTitle(R.string.dialog_ingredient_details_title)
+                .setTitle(R.string.dialog_grocery_details_title)
                 .setView(R.layout.dialog_edit_ingredient)
-                .setPositiveButton(R.string.dialog_ingredient_details_positive_button_text, null)
+                .setPositiveButton(R.string.dialog_grocery_details_positive_button_text, null)
                 .create();
 
         alertDialog.setOnShowListener(dialog -> {
@@ -187,9 +187,9 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
 
                 String name = ingredientNameInput.getText().toString();
 
-                long id = (ingredient == null ? Ingredient.UNREGISTERED_INGREDIENT_ID : ingredient.getId());
+                long id = (grocery == null ? Grocery.UNREGISTERED_GROCERY_ID : grocery.getId());
 
-                presenter.onSaveIngredient(new Ingredient(id, name));
+                presenter.onSaveGrocery(new Grocery(id, name));
 
                 alertDialog.dismiss();
             });
@@ -199,47 +199,47 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
     }
 
     @Override
-    public void clearIngredients() {
+    public void clearGroceries() {
 
-        mIngredientsFragment.clearList();
+        mGroceriesFragment.clearList();
     }
 
     @Override
-    public void updateIngredient(Ingredient ingredient) {
+    public void updateGrocery(Grocery grocery) {
 
-        mIngredientsFragment.updateIngredient(ingredient);
+        mGroceriesFragment.updateIngredient(grocery);
     }
 
     @Override
-    public void showIngredientNameEmptyError() {
+    public void showGroceryNameEmptyError() {
 
         Snackbar.make(container, "Имя ингридиента не может быть пустым", Snackbar.LENGTH_LONG)
                 .show();
     }
 
     @Override
-    public void addIngredient(Ingredient ingredient) {
+    public void addGrocery(Grocery grocery) {
 
-        mIngredientsFragment.addIngredient(ingredient);
+        mGroceriesFragment.addIngredient(grocery);
     }
 
     @Override
     public void filterListMatchingQuery(String query) {
 
-        mIngredientsFragment.applyFilter(new NameMatchingFilter(query));
+        mGroceriesFragment.applyFilter(new NameMatchingFilter(query));
     }
 
     @Override
     public void clearFilter() {
-        mIngredientsFragment.clearFilter();
+        mGroceriesFragment.clearFilter();
     }
 
     @Override
-    public void removeIngredient(Ingredient ingredient) {
-        mIngredientsFragment.removeIngredient(ingredient);
+    public void removeGrocery(Grocery grocery) {
+        mGroceriesFragment.removeIngredient(grocery);
     }
 
-    private static class NameMatchingFilter implements Filter<Ingredient> {
+    private static class NameMatchingFilter implements Filter<Grocery> {
 
         private String mNameToMatch;
 
@@ -248,8 +248,8 @@ public class IngredientsActivity extends BaseActivity implements IngredientsView
         }
 
         @Override
-        public boolean match(Ingredient ingredient) {
-            return ingredient.getName().contains(mNameToMatch);
+        public boolean match(Grocery grocery) {
+            return grocery.getName().contains(mNameToMatch);
         }
 
     }

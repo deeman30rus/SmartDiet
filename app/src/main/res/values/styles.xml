@@ -19,7 +19,7 @@
     <style name="AppSearchViewStyle" parent="Widget.AppCompat.SearchView">
         <item name="queryBackground">@android:color/transparent</item>
         <item name="closeIcon">@drawable/icon_close</item>
-        <item name="queryHint">@string/ingredient_search_hint</item>
+        <item name="queryHint">@string/grocery_search_hint</item>
         <item name="android:imeActionId">6</item>
     </style>
 

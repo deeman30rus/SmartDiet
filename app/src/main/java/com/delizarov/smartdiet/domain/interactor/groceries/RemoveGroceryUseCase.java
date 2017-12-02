@@ -1,9 +1,9 @@
-package com.delizarov.smartdiet.domain.interactor.ingredients;
+package com.delizarov.smartdiet.domain.interactor.groceries;
 
 
 import com.delizarov.smartdiet.data.repository.CookbookRepository;
 import com.delizarov.smartdiet.domain.interactor.UseCase;
-import com.delizarov.smartdiet.domain.models.Ingredient;
+import com.delizarov.smartdiet.domain.models.Grocery;
 
 import javax.inject.Inject;
 
@@ -11,20 +11,20 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.schedulers.Schedulers;
 
-public class RemoveIngredientUseCase extends UseCase<Boolean, Ingredient> {
+public class RemoveGroceryUseCase extends UseCase<Boolean, Grocery> {
 
     private final CookbookRepository mCookbookRepository;
 
     @Inject
-    public RemoveIngredientUseCase(CookbookRepository cookbookRepository) {
+    public RemoveGroceryUseCase(CookbookRepository cookbookRepository) {
         mCookbookRepository = cookbookRepository;
     }
 
     @Override
-    protected Observable<Boolean> createObservable(Ingredient ingredient) {
+    protected Observable<Boolean> createObservable(Grocery grocery) {
         return Observable.create((ObservableOnSubscribe<Boolean>) e -> {
 
-            e.onNext(mCookbookRepository.removeIngredient(ingredient));
+            e.onNext(mCookbookRepository.removeGrocery(grocery));
             e.onComplete();
         }).subscribeOn(Schedulers.io());
     }

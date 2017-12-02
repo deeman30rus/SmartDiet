@@ -20,7 +20,7 @@
             android:theme="@style/LoginScreenTheme"/>
 
         <activity
-            android:name=".ui.activities.IngredientsActivity"
+            android:name=".ui.activities.GroceriesActivity"
             android:screenOrientation="portrait">
 
         </activity>
