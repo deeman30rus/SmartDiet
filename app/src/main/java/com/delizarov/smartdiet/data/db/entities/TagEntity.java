@@ -1,19 +1,17 @@
 package com.delizarov.smartdiet.data.db.entities;
 
-
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity(
-        tableName = "groceries"
+        tableName = "tags"
 )
-public class GroceryEntity {
+public class TagEntity {
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    public Long Id;
-
-    @ColumnInfo(name = "name")
-    public String Name;
+    @PrimaryKey
+    @ColumnInfo(name = "tag")
+    @NonNull
+    public String Tag;
 }
