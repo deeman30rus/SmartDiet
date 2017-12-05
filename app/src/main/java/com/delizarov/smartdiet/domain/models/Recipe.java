@@ -29,6 +29,54 @@ public class Recipe {
 
     private Set<String> mTags;
 
+    public long getId() {
+        return mId;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public List<String> getPictureURIs() {
+        return mPictureURIs;
+    }
+
+    public Integer getCookTime() {
+        return mCookTime;
+    }
+
+    public BigDecimal getCalories() {
+        return mCalories;
+    }
+
+    public BigDecimal getProteins() {
+        return mProteins;
+    }
+
+    public BigDecimal getTriglycerides() {
+        return mTriglycerides;
+    }
+
+    public BigDecimal getCarbohydrates() {
+        return mCarbohydrates;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return mIngredients;
+    }
+
+    public List<Direction> getDirections() {
+        return mDirections;
+    }
+
+    public Set<String> getTags() {
+        return mTags;
+    }
+
     @Override
     public int hashCode() {
 

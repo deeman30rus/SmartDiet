@@ -51,7 +51,7 @@ public class StartActivity extends BaseActivity implements StartView {
     @Override
     public void showDailyMealsView(User user) {
 
-        Intent intent = new Intent(getApplicationContext(), GroceriesActivity.class);
+        Intent intent = new Intent(getApplicationContext(), RecipesActivity.class);
 
         startActivity(intent);
         finish();

@@ -36,14 +36,14 @@ public class GroceryListFragment extends BaseFragment {
 
     private List<Grocery> mGroceries = new ArrayList<>();
 
-    @BindView(R.id.ingredients)
-    RecyclerView ingredients;
+    @BindView(R.id.groceries)
+    RecyclerView groceries;
 
     private SortedListAdapter<Grocery> mAdapter = new SortedListAdapter<Grocery>(Grocery.class, (i1, i2) -> i1.getName().compareToIgnoreCase(i2.getName())) {
         @Override
         public ViewHolderBase<Grocery> onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            GroceryViewHolder viewHolder = new GroceryViewHolder(R.layout.vh_ingredient, parent);
+            GroceryViewHolder viewHolder = new GroceryViewHolder(R.layout.vh_grocery, parent);
 
             viewHolder.setOnItemClickListener(mOnItemClickListener);
 
@@ -63,13 +63,13 @@ public class GroceryListFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_ingredient_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_grocery_list, container, false);
 
         mUnbinder = ButterKnife.bind(this, view);
 
         getApplicationComponent().inject(this);
 
-        ingredients.setAdapter(mAdapter);
+        groceries.setAdapter(mAdapter);
 
         return view;
     }

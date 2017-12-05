@@ -6,6 +6,7 @@ import com.delizarov.smartdiet.data.db.Converters;
 import com.delizarov.smartdiet.data.db.entities.GroceryEntity;
 import com.delizarov.smartdiet.data.repository.CookbookRepository;
 import com.delizarov.smartdiet.domain.models.Grocery;
+import com.delizarov.smartdiet.domain.models.Recipe;
 
 import javax.inject.Inject;
 
@@ -51,5 +52,19 @@ public class CookbookRepositoryImpl implements CookbookRepository {
         mDb.ingredientDao().remove(entity);
 
         return true;
+    }
+
+    @Override
+    public Observable<Recipe> readRecipes() {
+
+        String titles[] = {"recipe1", "recipe2", "recipe3"};
+
+        return Observable.defer(() -> Observable.fromArray(titles))
+                .map(str -> {
+                    Recipe.Builder builder = new Recipe.Builder();
+                    builder.withTitle(str);
+
+                    return builder.build();
+                });
     }
 }

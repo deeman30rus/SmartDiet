@@ -83,7 +83,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void showDailyMeals() {
 
-        Intent intent = new Intent(getApplicationContext(), GroceriesActivity.class);
+        Intent intent = new Intent(getApplicationContext(), RecipesActivity.class);
 
         startActivity(intent);
         finish();

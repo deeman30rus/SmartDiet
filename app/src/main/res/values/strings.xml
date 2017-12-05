@@ -9,4 +9,5 @@
     <string name="dialog_grocery_details_title">Ингредиент</string>
     <string name="dialog_grocery_details_positive_button_text">Сохранить</string>
     <string name="activity_grocery_title">Ингредиенты</string>
+    <string name="activity_recipes_title">Рецепты</string>
 </resources>

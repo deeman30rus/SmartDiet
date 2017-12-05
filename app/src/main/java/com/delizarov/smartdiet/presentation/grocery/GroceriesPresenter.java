@@ -58,7 +58,7 @@ public class GroceriesPresenter {
                 .subscribe(grocery -> mView.renderGrocery(grocery));
     }
 
-    public void onAddButtonClicked() {
+    public void onAddButtonClick() {
 
         mView.showGroceryDetails(null);
     }

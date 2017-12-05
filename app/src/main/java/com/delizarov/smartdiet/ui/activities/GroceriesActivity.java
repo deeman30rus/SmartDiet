@@ -89,7 +89,7 @@ public class GroceriesActivity extends BaseActivity implements GroceriesView {
 
         //
 
-        addGrocery.setOnClickListener(v -> presenter.onAddButtonClicked());
+        addGrocery.setOnClickListener(v -> presenter.onAddButtonClick());
 
         presenter.attachView(GroceriesActivity.this);
         presenter.onCreate();
