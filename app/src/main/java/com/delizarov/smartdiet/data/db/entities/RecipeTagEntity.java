@@ -11,10 +11,7 @@ import android.support.annotation.NonNull;
         foreignKeys = {
                 @ForeignKey(entity = RecipeEntity.class,
                         parentColumns = "id",
-                        childColumns = "recipe_id"),
-                @ForeignKey(entity = TagEntity.class,
-                        parentColumns = "tag",
-                        childColumns = "tag")
+                        childColumns = "recipe_id")
         },
         indices = {@Index(value = {"recipe_id", "tag"})}
 )
@@ -26,5 +23,5 @@ public class RecipeTagEntity {
 
     @ColumnInfo(name = "tag")
     @NonNull
-    public  String Tag;
+    public String Tag;
 }

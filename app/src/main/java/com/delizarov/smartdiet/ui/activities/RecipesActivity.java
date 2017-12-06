@@ -61,6 +61,7 @@ public class RecipesActivity extends BaseActivity implements RecipesView {
                 .replace(R.id.recipe_list, mGroceriesFragment, RecipeListFragment.TAG)
                 .commit();
 
+
 //        mSearchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
         //

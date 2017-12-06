@@ -12,12 +12,5 @@ public class UnitEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    public long Id;
-
-    @ColumnInfo(name = "type")
-    public int Type;
-
-    @ColumnInfo(name = "name")
-    @NonNull
-    public String Name;
+    public Long Id;
 }

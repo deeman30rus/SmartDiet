@@ -18,7 +18,7 @@ public class RecipePictureURIEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    public long Id;
+    public Long Id;
 
     @ColumnInfo(name = "picture_uri")
     @NonNull

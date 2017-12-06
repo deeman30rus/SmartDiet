@@ -15,27 +15,27 @@
     ],
     "ingredients": [
       {
-        "name": "яйцо куриное",
+        "name": "Яйцо куриное",
         "unit": "шт",
         "amount": 1
       },
       {
-        "name": "творог",
+        "name": "Творог",
         "unit": "г",
         "amount": 110
       },
       {
-        "name": "мука",
+        "name": "Мука",
         "unit": "ст. л",
         "amount": 2.5
       },
       {
-        "name": "сахар",
+        "name": "Сахар",
         "unit": "ст. л",
         "amount": 1
       },
       {
-        "name": "соль",
+        "name": "Соль",
         "unit": "ч. л",
         "amount": 0.5
       }
@@ -78,38 +78,38 @@
     ],
     "ingredients": [
       {
-        "name": "мука",
+        "name": "Мука",
         "unit": "г",
         "amount": 120
       },
       {
-        "name": "молоко",
+        "name": "Молоко",
         "unit": "мл",
         "amount": 110
       },
       {
-        "name": "сахар",
+        "name": "Сахар",
         "unit": "ст. л",
         "amount": 2
       },
       {
-        "name": "соль",
-        "unit": "щепоть",
-        "amount": 1
+        "name": "Соль",
+        "unit": "ч. л",
+        "amount": 0.5
       },
       {
-        "name": "яйцо куриное",
+        "name": "Яйцо куриное",
         "unit": "шт",
         "amount": 2
       },
       {
-        "name": "гашеная сода",
-        "unit": "ч. д.",
+        "name": "Гашеная сода",
+        "unit": "ч. л",
         "amount": 1
       },
       {
-        "name": "молотая корица",
-        "unit": "ч. д.",
+        "name": "Молотая корица",
+        "unit": "по вкусу",
         "amount": 0.3
       }
     ],
@@ -162,12 +162,12 @@
     ],
     "ingredients": [
       {
-        "name": "яйцо куриное",
+        "name": "Яйцо куриное",
         "unit": "шт",
         "amount": 3
       },
       {
-        "name": "сосиски",
+        "name": "Сосиски",
         "unit": "шт",
         "amount": 3
       }
@@ -184,8 +184,8 @@
     ]
   },
   {
-    "title": "яичница",
-    "description": "простая яичница",
+    "title": "Яичница",
+    "description": "Простая яичница",
     "cook_time": 30,
     "food_energy": 366,
     "proteins": 14.9,
@@ -198,24 +198,24 @@
     "pictures": [],
     "ingredients": [
       {
-        "name": "яйцо куриное",
+        "name": "Яйцо куриное",
         "unit": "шт",
         "amount": 3
       },
       {
-        "name": "сосиски",
+        "name": "Сосиски",
         "unit": "шт",
         "amount": 3
       },
       {
-        "name": "луковица",
+        "name": "Лук",
         "unit": "шт",
         "amount": 1
       },
       {
-        "name": "соль",
-        "unit": "щепоть",
-        "amount": 1
+        "name": "Соль",
+        "unit": "ч. л",
+        "amount": 0.5
       }
     ],
     "directions": [
@@ -242,8 +242,8 @@
     ]
   },
   {
-    "title": "каша",
-    "description": "каша овсяная",
+    "title": "Каша",
+    "description": "Каша овсяная",
     "cook_time": 30,
     "food_energy": 366,
     "proteins": 14.9,
@@ -267,7 +267,7 @@
       },
       {
         "name": "Сахар",
-        "unit": "ст. л.",
+        "unit": "ст. л",
         "amount": 3
       },
       {
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "title": "гренки",
+    "title": "Гренки",
     "description": "это гренки, детка!",
     "cook_time": 30,
     "food_energy": 366,
@@ -314,17 +314,17 @@
     "ingredients": [
       {
         "name": "Батон",
-        "unit": "шт.",
+        "unit": "шт",
         "amount": 1
       },
       {
         "name": "Яйцо куриное",
-        "unit": "шт.",
+        "unit": "шт",
         "amount": 1
       },
       {
         "name": "Молоко",
-        "unit": "ст. л.",
+        "unit": "ст. л",
         "amount": 2
       }
     ],
@@ -363,12 +363,12 @@
     "ingredients": [
       {
         "name": "Варёный картофель",
-        "unit": "шт.",
+        "unit": "шт",
         "amount": 3
       },
       {
         "name": "Сосиски",
-        "unit": "шт.",
+        "unit": "шт",
         "amount": 3
       }
     ],

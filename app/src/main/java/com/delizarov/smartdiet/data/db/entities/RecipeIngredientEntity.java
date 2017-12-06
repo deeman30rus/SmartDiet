@@ -23,7 +23,7 @@ public class RecipeIngredientEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    public long Id;
+    public Long Id;
 
     @ColumnInfo(name = "grocery_id")
     public long GroceryId;
