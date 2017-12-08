@@ -3,10 +3,22 @@ package com.delizarov.smartdiet.data.repository.impl;
 
 import com.delizarov.smartdiet.data.db.AppDatabase;
 import com.delizarov.smartdiet.data.db.Converters;
+import com.delizarov.smartdiet.data.db.dao.RecipeDao;
+import com.delizarov.smartdiet.data.db.dao.RecipeIngredientDao;
 import com.delizarov.smartdiet.data.db.entities.GroceryEntity;
+import com.delizarov.smartdiet.data.db.entities.RecipeDirectionEntity;
+import com.delizarov.smartdiet.data.db.entities.RecipeEntity;
+import com.delizarov.smartdiet.data.db.entities.RecipeIngredientEntity;
+import com.delizarov.smartdiet.data.db.entities.RecipePictureURIEntity;
+import com.delizarov.smartdiet.data.db.entities.RecipeTagEntity;
 import com.delizarov.smartdiet.data.repository.CookbookRepository;
 import com.delizarov.smartdiet.domain.models.Grocery;
 import com.delizarov.smartdiet.domain.models.Recipe;
+import com.delizarov.smartdiet.domain.models.Unit;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -57,14 +69,23 @@ public class CookbookRepositoryImpl implements CookbookRepository {
     @Override
     public Observable<Recipe> readRecipes() {
 
-        String titles[] = {"recipe1", "recipe2", "recipe3"};
+        return Observable.defer(() -> Observable.fromIterable(getRecipes()));
+    }
 
-        return Observable.defer(() -> Observable.fromArray(titles))
-                .map(str -> {
-                    Recipe.Builder builder = new Recipe.Builder();
-                    builder.withTitle(str);
+    private Iterable<Recipe> getRecipes() {
 
-                    return builder.build();
-                });
+        List<Recipe> recipes = new ArrayList<>();
+
+        for (RecipeDao.ExplicitRecipe recipe : mDb.recipeDao().readRecipes()) {
+
+            List<Recipe.Ingredient> ingredients = new ArrayList<>();
+
+            for (RecipeIngredientDao.ExplicitRecipeIngredient ri : mDb.recipeIngredientDao().readIngredientsForRecipe(recipe.Recipe.Id))
+                ingredients.add(Converters.toIngredient(ri));
+
+            recipes.add(Converters.toRecipe(recipe, ingredients));
+        }
+
+        return recipes;
     }
 }

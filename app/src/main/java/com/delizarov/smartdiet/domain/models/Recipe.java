@@ -229,6 +229,14 @@ public class Recipe {
             return Builder.this;
         }
 
+        public Builder addPictureURIs(Iterable<String> pictureURIs) {
+
+            for (String pictureURI : pictureURIs)
+                addPictureURI(pictureURI);
+
+            return Builder.this;
+        }
+
         public Builder withCookTime(Integer cookTime) {
 
             mRecipe.mCookTime = cookTime;
@@ -296,6 +304,14 @@ public class Recipe {
             return Builder.this;
         }
 
+        public Builder addIngredients(Iterable<Ingredient> ingredients) {
+
+            for (Ingredient ingredient : ingredients)
+                addIngredient(ingredient);
+
+            return Builder.this;
+        }
+
         public Builder addDirection(Direction direction) {
 
             mRecipe.addDirection(direction);
@@ -303,9 +319,25 @@ public class Recipe {
             return Builder.this;
         }
 
+        public Builder addDirections(Iterable<Direction> directions) {
+
+            for (Direction direction : directions)
+                addDirection(direction);
+
+            return Builder.this;
+        }
+
         public Builder addTag(String tag) {
 
             mRecipe.addTag(tag);
+
+            return Builder.this;
+        }
+
+        public Builder addTags(Iterable<String> tags) {
+
+            for (String tag : tags)
+                addTag(tag);
 
             return Builder.this;
         }

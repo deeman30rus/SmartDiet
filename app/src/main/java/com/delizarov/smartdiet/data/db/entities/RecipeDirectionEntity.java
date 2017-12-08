@@ -24,7 +24,7 @@ public class RecipeDirectionEntity {
     @NonNull
     public String ToDo;
 
-    @ColumnInfo(name = "order")
+    @ColumnInfo(name = "ordinal")
     public int Order;
 
     @ColumnInfo(name = "recipe_id")

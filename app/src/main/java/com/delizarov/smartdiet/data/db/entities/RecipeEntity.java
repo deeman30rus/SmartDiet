@@ -34,4 +34,6 @@ public class RecipeEntity {
 
     @ColumnInfo(name = "carbohydrates")
     public Double Carbohydrates;
+
+
 }
