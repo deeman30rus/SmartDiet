@@ -10,4 +10,6 @@
     <string name="dialog_grocery_details_positive_button_text">Сохранить</string>
     <string name="activity_grocery_title">Ингредиенты</string>
     <string name="activity_recipes_title">Рецепты</string>
+    <string name="icon_timer_description">Время приготовления</string>
+    <string name="recipe_pic_description">Фотография</string>
 </resources>

@@ -20,4 +20,11 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"/>
+
 </android.support.constraint.ConstraintLayout>
