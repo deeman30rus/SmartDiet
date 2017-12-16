@@ -25,9 +25,12 @@
 
         <activity
             android:name=".ui.activities.RecipesActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
 
-        </activity>
+        <activity
+            android:name=".ui.activities.RecipeDetailsActivity"
+            android:screenOrientation="portrait" />
+
 
         <activity
             android:name=".ui.activities.StartActivity"

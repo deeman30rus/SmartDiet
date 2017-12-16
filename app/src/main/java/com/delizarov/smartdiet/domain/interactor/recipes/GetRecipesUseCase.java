@@ -5,12 +5,14 @@ import com.delizarov.smartdiet.data.repository.CookbookRepository;
 import com.delizarov.smartdiet.domain.interactor.UseCase;
 import com.delizarov.smartdiet.domain.models.Recipe;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
-public class GetRecipesUseCase extends UseCase<Recipe, Void>{
+public class GetRecipesUseCase extends UseCase<Recipe, List<Long>> {
 
     private CookbookRepository mCookbookRepository;
 
@@ -20,9 +22,9 @@ public class GetRecipesUseCase extends UseCase<Recipe, Void>{
     }
 
     @Override
-    protected Observable<Recipe> createObservable(Void aVoid) {
+    protected Observable<Recipe> createObservable(List<Long> identifiers) {
         return mCookbookRepository
-                .readRecipes()
+                .readRecipes(identifiers)
                 .subscribeOn(Schedulers.newThread());
     }
 }

@@ -20,7 +20,10 @@ public interface RecipeDao {
     Long addRecipe(RecipeEntity entity);
 
     @Query("select * from recipes")
-    List<ExplicitRecipe> readRecipes();
+    List<ExplicitRecipe> readAllRecipes();
+
+    @Query("select * from recipes where id in (:recipeIds)")
+    List<ExplicitRecipe> readRecipes(Long[] recipeIds);
 
     class ExplicitRecipe {
 

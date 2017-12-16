@@ -5,4 +5,6 @@ import com.delizarov.smartdiet.domain.models.Recipe;
 
 public interface RecipesView {
     void renderRecipe(Recipe recipe);
+
+    void showRecipeDetails(Recipe recipe);
 }

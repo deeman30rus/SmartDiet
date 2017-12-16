@@ -45,6 +45,13 @@ public class Recipe {
         return mPictureURIs;
     }
 
+    public String getMainPicture() {
+
+        // TODO: сделать что-нибудь когда картинки нет
+
+        return mPictureURIs.get(0);
+    }
+
     public Integer getCookTime() {
         return mCookTime;
     }

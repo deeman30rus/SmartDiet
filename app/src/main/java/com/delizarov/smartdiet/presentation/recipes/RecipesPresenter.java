@@ -1,6 +1,7 @@
 package com.delizarov.smartdiet.presentation.recipes;
 
 import com.delizarov.smartdiet.domain.interactor.recipes.GetRecipesUseCase;
+import com.delizarov.smartdiet.domain.models.Recipe;
 
 import javax.inject.Inject;
 
@@ -38,5 +39,10 @@ public class RecipesPresenter {
 
     public void onAddButtonClick() {
 
+    }
+
+    public void onRecipeItemClicked(Recipe recipe) {
+
+        mView.showRecipeDetails(recipe);
     }
 }

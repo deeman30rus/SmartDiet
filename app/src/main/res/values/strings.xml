@@ -12,4 +12,5 @@
     <string name="activity_recipes_title">Рецепты</string>
     <string name="icon_timer_description">Время приготовления</string>
     <string name="recipe_pic_description">Фотография</string>
+    <string name="recipe_details_title_picture">recipe details picture</string>
 </resources>

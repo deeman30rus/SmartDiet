@@ -29,11 +29,13 @@ public class RecipeListFragment extends BaseFragment {
 
     private Unbinder mUnbinder;
 
+    private OnRecipeItemClickListener mOnClickListener;
+
     private SortedListAdapter<Recipe> mAdapter = new SortedListAdapter<Recipe>(Recipe.class, (r1, r2) -> Long.compare(r1.getId(), r2.getId())) {
         @Override
         public ViewHolderBase<Recipe> onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            RecipeViewHolder viewHolder = new RecipeViewHolder(R.layout.vh_recipe, parent);
+            RecipeViewHolder viewHolder = new RecipeViewHolder(getActivity().getApplicationContext(), R.layout.vh_recipe, parent);
 
             return viewHolder;
         }
@@ -41,9 +43,20 @@ public class RecipeListFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(ViewHolderBase<Recipe> holder, int position) {
 
-            holder.bind(get(position));
+            final Recipe recipe = get(position);
+
+            holder.itemView.setOnClickListener(v -> {
+                if (mOnClickListener != null)
+                    mOnClickListener.onClick(recipe);
+            });
+
+            holder.bind(recipe);
         }
     };
+
+    public static RecipeListFragment newInstance() {
+        return new RecipeListFragment();
+    }
 
     @Nullable
     @Override
@@ -60,8 +73,11 @@ public class RecipeListFragment extends BaseFragment {
         return view;
     }
 
-    public static RecipeListFragment newInstance() {
-        return new RecipeListFragment();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mUnbinder.unbind();
     }
 
     public void addRecipe(Recipe recipe) {
@@ -69,10 +85,12 @@ public class RecipeListFragment extends BaseFragment {
         mAdapter.add(recipe);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void setOnClickListener(OnRecipeItemClickListener onClickListener) {
+        mOnClickListener = onClickListener;
+    }
 
-        mUnbinder.unbind();
+    public interface OnRecipeItemClickListener {
+
+        void onClick(Recipe recipe);
     }
 }

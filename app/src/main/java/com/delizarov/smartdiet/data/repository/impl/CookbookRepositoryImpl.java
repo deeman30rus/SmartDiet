@@ -6,17 +6,10 @@ import com.delizarov.smartdiet.data.db.Converters;
 import com.delizarov.smartdiet.data.db.dao.RecipeDao;
 import com.delizarov.smartdiet.data.db.dao.RecipeIngredientDao;
 import com.delizarov.smartdiet.data.db.entities.GroceryEntity;
-import com.delizarov.smartdiet.data.db.entities.RecipeDirectionEntity;
-import com.delizarov.smartdiet.data.db.entities.RecipeEntity;
-import com.delizarov.smartdiet.data.db.entities.RecipeIngredientEntity;
-import com.delizarov.smartdiet.data.db.entities.RecipePictureURIEntity;
-import com.delizarov.smartdiet.data.db.entities.RecipeTagEntity;
 import com.delizarov.smartdiet.data.repository.CookbookRepository;
 import com.delizarov.smartdiet.domain.models.Grocery;
 import com.delizarov.smartdiet.domain.models.Recipe;
-import com.delizarov.smartdiet.domain.models.Unit;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,16 +60,26 @@ public class CookbookRepositoryImpl implements CookbookRepository {
     }
 
     @Override
-    public Observable<Recipe> readRecipes() {
+    public Observable<Recipe> readRecipes(List<Long> identifiers) {
 
-        return Observable.defer(() -> Observable.fromIterable(getRecipes()));
+        return Observable.defer(() -> Observable.fromIterable(getRecipes(identifiers)));
     }
 
-    private Iterable<Recipe> getRecipes() {
+    private Iterable<Recipe> getRecipes(List<Long> identifiers) {
 
         List<Recipe> recipes = new ArrayList<>();
 
-        for (RecipeDao.ExplicitRecipe recipe : mDb.recipeDao().readRecipes()) {
+        List<RecipeDao.ExplicitRecipe> recipeEntities;
+        Long[] recipeIds;
+
+        if (identifiers != null) {
+            recipeIds = identifiers.toArray(new Long[0]);
+        } else
+            recipeIds = new Long[0];
+
+        recipeEntities = identifiers == null ? mDb.recipeDao().readAllRecipes() : mDb.recipeDao().readRecipes(recipeIds);
+
+        for (RecipeDao.ExplicitRecipe recipe : recipeEntities) {
 
             List<Recipe.Ingredient> ingredients = new ArrayList<>();
 

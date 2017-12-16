@@ -4,6 +4,7 @@ package com.delizarov.smartdiet.android;
 import com.delizarov.smartdiet.data.DataRepositoryModule;
 import com.delizarov.smartdiet.ui.activities.GroceriesActivity;
 import com.delizarov.smartdiet.ui.activities.LoginActivity;
+import com.delizarov.smartdiet.ui.activities.RecipeDetailsActivity;
 import com.delizarov.smartdiet.ui.activities.RecipesActivity;
 import com.delizarov.smartdiet.ui.activities.StartActivity;
 import com.delizarov.smartdiet.ui.fragments.GroceryListFragment;
@@ -35,4 +36,6 @@ public interface ApplicationComponent {
     void inject(RecipesActivity recipesActivity);
 
     void inject(RecipeListFragment recipeListFragment);
+
+    void inject(RecipeDetailsActivity recipeDetailsActivity);
 }

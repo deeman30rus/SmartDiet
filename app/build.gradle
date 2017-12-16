@@ -41,6 +41,7 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:palette-v7:21.0.+'
 
     // room persistance lib
     compile "android.arch.persistence.room:runtime:1.0.0-beta2"

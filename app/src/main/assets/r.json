@@ -7,7 +7,7 @@
     "proteins": 8.1,
     "triglycerides": 2.3,
     "carbohydrates": 8.3,
-    "pictures": [],
+    "pictures": ["lazy.jpg"],
     "tags": [
       "варёное",
       "сладкое",
@@ -71,7 +71,7 @@
     "proteins": 14.9,
     "triglycerides": 9.2,
     "carbohydrates": 56,
-    "pictures": [],
+    "pictures": ["pancakes.jpg"],
     "tags": [
       "печёное",
       "сладкое"
@@ -156,7 +156,7 @@
     "proteins": 14.9,
     "triglycerides": 9.2,
     "carbohydrates": 56,
-    "pictures": [],
+    "pictures": ["boiled eggs.jpg"],
     "tags": [
       "варёное"
     ],
@@ -195,7 +195,7 @@
       "жареное",
       "яйца"
     ],
-    "pictures": [],
+    "pictures": ["fried eggs.jpg"],
     "ingredients": [
       {
         "name": "Яйцо куриное",
@@ -253,7 +253,7 @@
       "варёное",
       "молоко"
     ],
-    "pictures": [],
+    "pictures": ["oatmeal.jpg"],
     "ingredients": [
       {
         "name": "Молоко",
@@ -310,7 +310,7 @@
     "tags": [
       "жареное"
     ],
-    "pictures": [],
+    "pictures": ["toasts.jpg"],
     "ingredients": [
       {
         "name": "Батон",
@@ -359,7 +359,7 @@
       "жареное",
       "картошка"
     ],
-    "pictures": [],
+    "pictures": ["fried potatoes.jpg"],
     "ingredients": [
       {
         "name": "Варёный картофель",
