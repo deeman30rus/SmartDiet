@@ -79,6 +79,7 @@ public class Converters {
                 .withTitle(recipe.Recipe.Title)
                 .withDescription(recipe.Recipe.Description)
                 .withCookTime(recipe.Recipe.CookTime)
+                .withCalories(recipe.Recipe.Calories)
                 .withCarbohydrates(recipe.Recipe.Carbohydrates)
                 .withTriglycerides(recipe.Recipe.Triglycerides)
                 .withProteins(recipe.Recipe.Proteins);

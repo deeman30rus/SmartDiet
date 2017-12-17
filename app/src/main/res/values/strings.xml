@@ -13,4 +13,7 @@
     <string name="icon_timer_description">Время приготовления</string>
     <string name="recipe_pic_description">Фотография</string>
     <string name="recipe_details_title_picture">recipe details picture</string>
+    <string name="recipe_details_tab_info_title">Информация</string>
+    <string name="recipe_details_tab_ingredients_title">Ингредиенты</string>
+    <string name="recipe_details_tab_directions_title">Способ приготовления</string>
 </resources>
