@@ -18,7 +18,6 @@ import com.delizarov.smartdiet.ui.viewholders.ViewHolderBase;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

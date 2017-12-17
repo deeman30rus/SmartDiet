@@ -35,6 +35,9 @@ public class RecipeDetailsPresenter {
 
     public void onViewCreated(long recipeId) {
 
+        if (mGetRecipeDisposable != null)
+            mGetRecipeDisposable.dispose();
+
         mGetRecipeDisposable = mGetRecipesUseCase
                 .observable(Collections.singletonList(recipeId))
                 .observeOn(AndroidSchedulers.mainThread())
