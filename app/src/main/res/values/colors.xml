@@ -4,6 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#212121</color>
+    <color name="divider">#BDBDBD</color>
+
     <color name="colorGrey">#2E2E2E</color>
 
     <color name="primary">#F44336</color>
@@ -26,6 +31,7 @@
     <color name="indigo_500">#3F51B5</color>
     <color name="indigo_700">#303F9F</color>
 
+    <color name="blue_300">#64B5F6</color>
     <color name="blue_500">#2196F3</color>
     <color name="blue_700">#1976D2</color>
 
@@ -53,6 +59,7 @@
     <color name="amber_500">#FFC107</color>
     <color name="amber_700">#FFA000</color>
 
+    <color name="orange_300">#FFB74D</color>
     <color name="orange_500">#FF9800</color>
     <color name="orange_700">#F57C00</color>
 
