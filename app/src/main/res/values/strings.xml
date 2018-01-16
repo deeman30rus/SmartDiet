@@ -16,4 +16,15 @@
     <string name="recipe_details_tab_info_title">Информация</string>
     <string name="recipe_details_tab_ingredients_title">Ингредиенты</string>
     <string name="recipe_details_tab_directions_title">Способ приготовления</string>
+
+    <string name="calories">%1$d калорий</string>
+
+    <plurals name="minutes">
+        <item quantity="zero">0 минут</item>
+        <item quantity="one">%d минута</item>
+        <item quantity="two">%d минуты</item>
+        <item quantity="few">%d минуты</item>
+        <item quantity="many">%d минут</item>
+        <item quantity="other">%d минут</item>
+    </plurals>
 </resources>

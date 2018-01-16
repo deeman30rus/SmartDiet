@@ -6,15 +6,14 @@ import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.delizarov.smartdiet.R;
 import com.delizarov.smartdiet.domain.models.Recipe;
+import com.delizarov.smartdiet.utils.StringResourceUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
@@ -61,9 +60,9 @@ public class RecipeViewHolder extends ViewHolderBase<Recipe> {
 
         description.setText(recipe.getDescription());
 
-        cookTime.setText(minutesText(recipe.getCookTime()));
+        cookTime.setText(StringResourceUtils.getMinutesString(mContext, recipe.getCookTime()));
 
-        calories.setText(String.format(Locale.getDefault(), "%d ккал", recipe.getCookTime()));
+        calories.setText(StringResourceUtils.getCaloriesString(mContext, recipe.getCalories().intValue()));
     }
 
     private void setPicture(String pictureURI) {
@@ -77,20 +76,5 @@ public class RecipeViewHolder extends ViewHolderBase<Recipe> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private static String minutesText(int minutes) {
-
-        if (minutes == 1)
-            return "1 минута";
-
-        int r10 = minutes % 10;
-        int r100 = minutes & 100;
-
-        if (r100 >= 5 && r100 < 20)
-            return String.format(Locale.getDefault(), "%d минут", minutes);
-
-        return String.format(Locale.getDefault(), "%d %s", minutes, (r10 < 5 ? "минуты" : "минут"));
-
     }
 }
