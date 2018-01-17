@@ -1,8 +1,6 @@
 package com.delizarov.smartdiet.ui.models;
 
 
-import android.support.v4.app.Fragment;
-
 import com.delizarov.smartdiet.ui.fragments.BaseFragment;
 
 /**
@@ -11,9 +9,11 @@ import com.delizarov.smartdiet.ui.fragments.BaseFragment;
 public abstract class Tab<T extends BaseFragment> {
 
     private final int mTitleResourceId;
+    private final int mIconResourceId;
 
-    public Tab(int mTitleResourceId) {
+    public Tab(int mTitleResourceId, int iconResourceId) {
         this.mTitleResourceId = mTitleResourceId;
+        mIconResourceId = iconResourceId;
     }
 
     public abstract T fragment();
@@ -21,5 +21,9 @@ public abstract class Tab<T extends BaseFragment> {
     public int getTitleResourceId() {
 
         return mTitleResourceId;
+    }
+
+    public int getIconResourceId() {
+        return mIconResourceId;
     }
 }

@@ -26,7 +26,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/icon_apple"
+        android:src="@drawable/icon_apple_white"
         app:layout_constraintBottom_toBottomOf="@+id/marker"
         app:layout_constraintEnd_toEndOf="@+id/marker"
         app:layout_constraintStart_toStartOf="@+id/marker"

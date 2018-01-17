@@ -1,12 +1,13 @@
 package com.delizarov.smartdiet.ui.activities;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -23,7 +24,6 @@ import com.delizarov.smartdiet.ui.fragments.RecipeDetailsInfoFragment;
 import com.delizarov.smartdiet.ui.fragments.RecipeDetailsIngredientsFragment;
 import com.delizarov.smartdiet.ui.fragments.RecipeDetailsFragment;
 import com.delizarov.smartdiet.ui.models.Tab;
-import com.delizarov.smartdiet.utils.models.MaterialShade;
 
 import java.io.IOException;
 
@@ -50,12 +50,15 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
     @BindView(R.id.tabs)
     ViewPager tabs;
 
+    @BindView(R.id.tab_header)
+    TabLayout headers;
+
     private Recipe mRecipe;
 
     private int mPrimaryColor;
 
     private final Tab[] TABS = {
-            new Tab<RecipeDetailsFragment>(R.string.recipe_details_tab_info_title) {
+            new Tab<RecipeDetailsFragment>(R.string.recipe_details_tab_info_title, R.drawable.icon_info_grey_500) {
                 @Override
                 public RecipeDetailsFragment fragment() {
 
@@ -73,7 +76,7 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
                     return fragment;
                 }
             },
-            new Tab<RecipeDetailsFragment>(R.string.recipe_details_tab_ingredients_title) {
+            new Tab<RecipeDetailsFragment>(R.string.recipe_details_tab_ingredients_title, R.drawable.icon_apple_grey_500) {
                 @Override
                 public RecipeDetailsFragment fragment() {
 
@@ -85,7 +88,7 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
                     return fragment;
                 }
             },
-            new Tab<RecipeDetailsFragment>(R.string.recipe_details_tab_directions_title) {
+            new Tab<RecipeDetailsFragment>(R.string.recipe_details_tab_directions_title, R.drawable.icon_actions_grey_500) {
                 @Override
                 public RecipeDetailsFragment fragment() {
                     assert mRecipe != null;
@@ -112,6 +115,7 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
         mPrimaryColor = intent.getIntExtra(PRIMARY_COLOR, R.color.indigo_500);
 
         getApplicationComponent().inject(this);
+
 
         presenter.attachView(RecipeDetailsActivity.this);
         presenter.beforeViewDisplayed(resId);
@@ -142,6 +146,16 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
         setSupportActionBar(toolbar);
 
         tabs.setAdapter(new RecipePagerAdapter(getSupportFragmentManager()));
+
+        headers.setupWithViewPager(tabs);
+
+        for (int i = 0; i < TABS.length; ++i)
+            headers.getTabAt(i).setIcon(TABS[i].getIconResourceId()); // вызывать после установки адаптера иначе NPE
+
+        setIconColor(headers.getTabAt(0), mPrimaryColor);
+
+        headers.addOnTabSelectedListener(new TabSelectedListener(tabs));
+
     }
 
     private void displayPicture(String pictureURI) {
@@ -178,10 +192,39 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
         @Override
         public CharSequence getPageTitle(int position) {
 
-            Context context = getApplicationContext();
-
-            return context.getResources().getString(TABS[position].getTitleResourceId());
+            return null;
         }
     }
 
+    private class TabSelectedListener extends TabLayout.ViewPagerOnTabSelectedListener {
+
+        private final int selectedColor = mPrimaryColor;
+        private final int unselectedColor = RecipeDetailsActivity.this.getResources().getColor(R.color.grey_500);
+
+        public TabSelectedListener(ViewPager viewPager) {
+            super(viewPager);
+        }
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            super.onTabSelected(tab);
+
+            setIconColor(tab, selectedColor);
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+            super.onTabUnselected(tab);
+
+            setIconColor(tab, unselectedColor);
+        }
+    }
+
+    private static void setIconColor(TabLayout.Tab tab, int color) {
+
+        if (tab.getIcon() == null)
+            return;
+
+        tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
 }
