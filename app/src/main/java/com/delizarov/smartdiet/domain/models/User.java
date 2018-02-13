@@ -2,7 +2,8 @@ package com.delizarov.smartdiet.domain.models;
 
 public class User {
 
-    public static final User UNATHORIZED_USER = new User("", "");
+    public static final User UNAUTHORIZED_USER = new User("", "");
+    public static final User AUTHORIZED_USER = new User("1", "Vit");
 
     private String mId;
     private String mName;

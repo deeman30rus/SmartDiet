@@ -10,9 +10,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-
 public class StartPresenter {
 
     private StartView mView;
@@ -60,7 +57,7 @@ public class StartPresenter {
                             .observable()
                             .subscribe(user -> {
 
-                                if (user == User.UNATHORIZED_USER)
+                                if (user == User.UNAUTHORIZED_USER)
                                     mView.showLoginView();
                                 else
                                     mView.showDailyMealsView(user);

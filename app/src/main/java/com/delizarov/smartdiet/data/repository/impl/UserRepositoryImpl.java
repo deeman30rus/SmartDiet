@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.delizarov.smartdiet.data.repository.UserRepository;
 import com.delizarov.smartdiet.domain.models.User;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+//import com.google.android.gms.auth.api.signin.GoogleSignIn;
+//import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import javax.inject.Inject;
 
@@ -24,11 +24,12 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User getUserInfo() {
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(mContext);
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(mContext);
+//
+//        if (account == null)
+//            return User.UNAUTHORIZED_USER;
 
-        if (account == null)
-            return User.UNATHORIZED_USER;
-
-        return new User(account.getId(), account.getDisplayName());
+//        return new User(account.getId(), account.getDisplayName());
+        return User.AUTHORIZED_USER;
     }
 }
