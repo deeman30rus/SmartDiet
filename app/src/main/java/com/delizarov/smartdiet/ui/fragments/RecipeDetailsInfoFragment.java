@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.delizarov.smartdiet.R;
 import com.delizarov.smartdiet.ui.activities.RecipeDetailsActivity;
+import com.delizarov.smartdiet.utils.models.MaterialShade;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -18,6 +19,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,9 +40,9 @@ public class RecipeDetailsInfoFragment extends RecipeDetailsFragment {
     @BindView(R.id.chart)
     PieChart pieChart;
 
-    private Unbinder mUnbinder;
+    private Unbinder unbinder;
 
-    private int mPrimaryColor;
+    MaterialShade primaryColor;
 
     public static RecipeDetailsInfoFragment newInstance() {
 
@@ -53,16 +55,8 @@ public class RecipeDetailsInfoFragment extends RecipeDetailsFragment {
 
         Bundle args = getArguments();
 
-        mPrimaryColor = args.getInt(RecipeDetailsActivity.PRIMARY_COLOR);
+        primaryColor = (MaterialShade) args.getSerializable(RecipeDetailsActivity.COLOR_SHADE);
     }
-
-    private float proteins = 30.f;
-    private float tryg = 12.f;
-    private float carbo = 40.5f;
-
-    private int indigo300 = 0xff7986CB;
-    private int indigo500 = 0xff3F51B5;
-    private int indigo700 = 0xff303F9F;
 
     @Nullable
     @Override
@@ -70,38 +64,33 @@ public class RecipeDetailsInfoFragment extends RecipeDetailsFragment {
 
         View view = inflater.inflate(R.layout.fragment_recipe_details_info, container, false);
 
-        mUnbinder = ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
-        description.setText(mRecipe.getDescription());
+        description.setText(recipe.getDescription());
 
         showTags();
 
         List<PieEntry> entries = new ArrayList<>();
 
-        entries.add(new PieEntry(proteins, "белки"));
-        entries.add(new PieEntry(carbo, "жиры"));
-        entries.add(new PieEntry(tryg, "углеводы"));
+        entries.add(new PieEntry(recipe.getProteins().floatValue(), "белки"));
+        entries.add(new PieEntry(recipe.getTriglycerides().floatValue(), "жиры"));
+        entries.add(new PieEntry(recipe.getCarbohydrates().floatValue(), "углеводы"));
 
-        PieDataSet set = new PieDataSet(entries, "Election Results");
-        set.setColors(indigo300, indigo500, indigo700);
+        PieDataSet set = new PieDataSet(entries, "Пищевая ценность");
+        set.setColors(getColorPalette(primaryColor));
         set.setValueTextSize(18);
         set.setValueTextColor(0xffffffff);
 
         PieData data = new PieData(set);
 
         pieChart.setData(data);
-        pieChart.setCenterText("300 ккал");
+        pieChart.setCenterText(String.format(Locale.getDefault(), "%d ккал", recipe.getCalories().intValue()));
         pieChart.setCenterTextSize(24f);
         pieChart.setDescription(null);
         pieChart.setHighlightPerTapEnabled(false);
+        pieChart.getLegend().setEnabled(false);
 
         pieChart.invalidate(); // refresh
-
-//        calories.setText(String.format(Locale.getDefault(), "Калорийность: %d ккал", mRecipe.getCalories().intValue()));
-//
-//        proteins.setText(String.format(Locale.getDefault(), "Белки: %f г", mRecipe.getProteins().doubleValue()));
-//        triglycerides.setText(String.format(Locale.getDefault(), "Жиры: %f г", mRecipe.getTriglycerides().doubleValue()));
-//        carbohydrates.setText(String.format(Locale.getDefault(), "Углеводы: %f г", mRecipe.getCarbohydrates().doubleValue()));
 
         return view;
     }
@@ -110,20 +99,67 @@ public class RecipeDetailsInfoFragment extends RecipeDetailsFragment {
     public void onDestroy() {
         super.onDestroy();
 
-        mUnbinder.unbind();
+        unbinder.unbind();
     }
 
     private void showTags() {
 
         ChipCloudConfig config = new ChipCloudConfig()
                 .selectMode(ChipCloud.SelectMode.none)
-                .uncheckedChipColor(0xff000000 | mPrimaryColor)
+                .uncheckedChipColor(primaryColor.getColor())
                 .uncheckedTextColor(Color.parseColor("#ffffff"))
                 .useInsetPadding(true);
 
         ChipCloud chipCloud = new ChipCloud(getActivity().getApplicationContext(), tags, config);
 
-        for (String tag : mRecipe.getTags())
+        for (String tag : recipe.getTags())
             chipCloud.addChip(tag);
+    }
+
+    private List<Integer> getColorPalette(MaterialShade mainColor) {
+
+        List<Integer> colors = null;
+        if (mainColor == MaterialShade.Red500) {
+            colors = Arrays.asList(getResourceColor(R.color.red_300), getResourceColor(R.color.red_500), getResourceColor(R.color.red_700));
+        } else if (mainColor == MaterialShade.Pink500) {
+            colors = Arrays.asList(getResourceColor(R.color.pink_300), getResourceColor(R.color.pink_500), getResourceColor(R.color.pink_700));
+        } else if (mainColor == MaterialShade.Purple500) {
+            colors = Arrays.asList(getResourceColor(R.color.purple_300), getResourceColor(R.color.purple_500), getResourceColor(R.color.purple_700));
+        } else if (mainColor == MaterialShade.DeepPurple500) {
+            colors = Arrays.asList(getResourceColor(R.color.deep_purple_300), getResourceColor(R.color.deep_purple_500), getResourceColor(R.color.deep_purple_700));
+        } else if (mainColor == MaterialShade.Indigo500) {
+            colors = Arrays.asList(getResourceColor(R.color.indigo_300), getResourceColor(R.color.indigo_500), getResourceColor(R.color.indigo_700));
+        } else if (mainColor == MaterialShade.Blue500) {
+            colors = Arrays.asList(getResourceColor(R.color.blue_300), getResourceColor(R.color.blue_500), getResourceColor(R.color.blue_700));
+        } else if (mainColor == MaterialShade.lightBlue500) {
+            colors = Arrays.asList(getResourceColor(R.color.light_blue_300), getResourceColor(R.color.light_blue_500), getResourceColor(R.color.light_blue_700));
+        } else if (mainColor == MaterialShade.Cyan500) {
+            colors = Arrays.asList(getResourceColor(R.color.cyan_300), getResourceColor(R.color.cyan_500), getResourceColor(R.color.cyan_700));
+        } else if (mainColor == MaterialShade.Teal500) {
+            colors = Arrays.asList(getResourceColor(R.color.teal_300), getResourceColor(R.color.teal_500), getResourceColor(R.color.teal_700));
+        } else if (mainColor == MaterialShade.Green500) {
+            colors = Arrays.asList(getResourceColor(R.color.green_300), getResourceColor(R.color.green_500), getResourceColor(R.color.green_700));
+        } else if (mainColor == MaterialShade.LightGreen500) {
+            colors = Arrays.asList(getResourceColor(R.color.light_green_300), getResourceColor(R.color.light_green_500), getResourceColor(R.color.light_green_700));
+        } else if (mainColor == MaterialShade.Lime500) {
+            colors = Arrays.asList(getResourceColor(R.color.lime_300), getResourceColor(R.color.lime_500), getResourceColor(R.color.lime_700));
+        } else if (mainColor == MaterialShade.Yellow500) {
+            colors = Arrays.asList(getResourceColor(R.color.yellow_300), getResourceColor(R.color.yellow_500), getResourceColor(R.color.yellow_700));
+        } else if (mainColor == MaterialShade.Amber500) {
+            colors = Arrays.asList(getResourceColor(R.color.amber_300), getResourceColor(R.color.amber_500), getResourceColor(R.color.amber_700));
+        } else if (mainColor == MaterialShade.Orange500) {
+            colors = Arrays.asList(getResourceColor(R.color.orange_300), getResourceColor(R.color.orange_500), getResourceColor(R.color.orange_700));
+        } else if (mainColor == MaterialShade.DeepOrange500) {
+            colors = Arrays.asList(getResourceColor(R.color.deep_orange_300), getResourceColor(R.color.deep_orange_500), getResourceColor(R.color.deep_orange_700));
+        } else if (mainColor == MaterialShade.Brown500) {
+            colors = Arrays.asList(getResourceColor(R.color.brown_300), getResourceColor(R.color.brown_500), getResourceColor(R.color.brown_700));
+        }
+
+        return colors;
+    }
+
+    private int getResourceColor(int resId) {
+
+        return getResources().getColor(resId);
     }
 }

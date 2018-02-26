@@ -56,7 +56,7 @@ public class RecipeDetailsDirectionsFragment extends RecipeDetailsFragment {
 
         directions.setAdapter(mAdapter);
 
-        mAdapter.addAll(mRecipe.getDirections());
+        mAdapter.addAll(recipe.getDirections());
 
         return view;
     }

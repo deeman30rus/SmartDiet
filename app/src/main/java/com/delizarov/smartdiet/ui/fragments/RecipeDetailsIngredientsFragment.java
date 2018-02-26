@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.delizarov.smartdiet.R;
 import com.delizarov.smartdiet.domain.models.Recipe;
 import com.delizarov.smartdiet.ui.adapters.SortedListAdapter;
-import com.delizarov.smartdiet.ui.viewholders.GroceryViewHolder;
 import com.delizarov.smartdiet.ui.viewholders.RecipeIngredientViewHolder;
 import com.delizarov.smartdiet.ui.viewholders.ViewHolderBase;
 
@@ -57,7 +56,7 @@ public class RecipeDetailsIngredientsFragment extends RecipeDetailsFragment {
 
         ingredients.setAdapter(mAdapter);
 
-        mAdapter.addAll(mRecipe.getIngredients());
+        mAdapter.addAll(recipe.getIngredients());
 
         return view;
     }

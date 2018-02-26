@@ -72,8 +72,6 @@ public class RecipesActivity extends BaseActivity implements RecipesView {
 
 //        mSearchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
-        //
-
         addRecipe.setOnClickListener(v -> presenter.onAddButtonClick());
 
         presenter.attachView(RecipesActivity.this);
@@ -93,8 +91,7 @@ public class RecipesActivity extends BaseActivity implements RecipesView {
 
         MaterialShade primaryColor = getPrimaryColor(recipe);
 
-        intent.putExtra(RecipeDetailsActivity.THEME_RESOURCE, getSuitableThemeId(primaryColor));
-        intent.putExtra(RecipeDetailsActivity.PRIMARY_COLOR, primaryColor.getColor());
+        intent.putExtra(RecipeDetailsActivity.COLOR_SHADE, primaryColor);
         intent.putExtra(RecipeDetailsActivity.RECIPE_ID, recipe.getId());
 
         startActivity(intent);
@@ -116,9 +113,7 @@ public class RecipesActivity extends BaseActivity implements RecipesView {
 
             Palette palette = Palette.generate(bitmap);
 
-            MaterialShade shade = MaterialShade.nearest(palette.getVibrantColor(getResources().getColor(R.color.indigo_500)));
-
-            color = shade;
+            color = MaterialShade.nearest(palette.getVibrantColor(getResources().getColor(R.color.indigo_500)));
 
         } catch (IOException e) {
 
@@ -126,27 +121,5 @@ public class RecipesActivity extends BaseActivity implements RecipesView {
         }
 
         return color;
-    }
-
-    private int getSuitableThemeId(MaterialShade primaryColor) {
-
-        return primaryColor == MaterialShade.Red500 ? R.style.RedTheme :
-                primaryColor == MaterialShade.Pink500 ? R.style.PinkTheme :
-                        primaryColor == MaterialShade.Purple500 ? R.style.PurpleTheme :
-                                primaryColor == MaterialShade.DeepPurple500 ? R.style.DeepOrangeTheme :
-                                        primaryColor == MaterialShade.Indigo500 ? R.style.IndigoTheme :
-                                                primaryColor == MaterialShade.Blue500 ? R.style.BlueTheme :
-                                                        primaryColor == MaterialShade.lightBlue500 ? R.style.LightBlueTheme :
-                                                                primaryColor == MaterialShade.Cyan500 ? R.style.CyanTheme :
-                                                                        primaryColor == MaterialShade.Teal500 ? R.style.TealTheme :
-                                                                                primaryColor == MaterialShade.Green500 ? R.style.GreenTheme :
-                                                                                        primaryColor == MaterialShade.LightGreen500 ? R.style.LightGreenTheme :
-                                                                                                primaryColor == MaterialShade.Lime500 ? R.style.LimeTheme :
-                                                                                                        primaryColor == MaterialShade.Yellow500 ? R.style.YellowTheme :
-                                                                                                                primaryColor == MaterialShade.Amber500 ? R.style.AmberTheme :
-                                                                                                                        primaryColor == MaterialShade.Orange500 ? R.style.OrangeTheme :
-                                                                                                                                primaryColor == MaterialShade.DeepOrange500 ? R.style.DeepOrangeTheme :
-                                                                                                                                        primaryColor == MaterialShade.Brown500 ? R.style.BrownTheme : R.style.BlueGreyTheme;
-
     }
 }

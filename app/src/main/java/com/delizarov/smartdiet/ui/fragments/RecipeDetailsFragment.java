@@ -7,9 +7,9 @@ public abstract class RecipeDetailsFragment extends BaseFragment {
 
     public static final String PRIMARY_COLOR = "PrimaryColor";
 
-    protected Recipe mRecipe;
+    protected Recipe recipe;
 
     public void setRecipe(Recipe recipe) {
-        mRecipe = recipe;
+        this.recipe = recipe;
     }
 }

@@ -74,6 +74,10 @@ public class ColorUtils {
         return nearestToShade500(color);
     }
 
+    public static int[] getShadePalette() {
+        return null;
+    }
+
     private static int nearestToShade500(int color) {
 
         double angles[] = new double[COLORS.length / 3];
