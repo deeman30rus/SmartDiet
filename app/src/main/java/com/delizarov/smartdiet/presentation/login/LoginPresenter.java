@@ -19,7 +19,7 @@ public class LoginPresenter {
     }
 
     public void onViewCreated() {
-        
+        mView.showDailyMeals();
     }
 
     public void onSuccessLogIn(User user) {

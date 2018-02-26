@@ -10,9 +10,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-
 public class StartPresenter {
 
     private StartView mView;
@@ -48,42 +45,24 @@ public class StartPresenter {
 
         mGetNotGrantedPermissionsUseCase
                 .observable()
-                .switchIfEmpty(observer ->mView.showLoginView())
-                .subscribe(new Observer<List<String>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
+                .switchIfEmpty(observer -> mView.showLoginView())
+                .doOnNext(notGrantedPermissions::addAll)
+                .doOnComplete(() -> {
+                    if (!notGrantedPermissions.isEmpty()) {
+                        mView.showPermissionsDialog(notGrantedPermissions);
+                        return;
                     }
 
-                    @Override
-                    public void onNext(List<String> permissions) {
+                    mGetCurrentUserUseCase
+                            .observable()
+                            .subscribe(user -> {
 
-                        notGrantedPermissions.addAll(permissions);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                        if (!notGrantedPermissions.isEmpty()) {
-                            mView.showPermissionsDialog(notGrantedPermissions);
-                            return;
-                        }
-
-                        mGetCurrentUserUseCase
-                                .observable()
-                                .subscribe(user -> {
-
-                                    if (user == User.UNATHORIZED_USER)
-                                        mView.showLoginView();
-                                    else
-                                        mView.showDailyMealsView(user);
-                                });
-                    }
-                });
+                                if (user == User.UNAUTHORIZED_USER)
+                                    mView.showLoginView();
+                                else
+                                    mView.showDailyMealsView(user);
+                            });
+                })
+                .subscribe();
     }
 }

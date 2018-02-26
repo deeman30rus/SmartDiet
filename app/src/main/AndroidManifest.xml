@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.delizarov.smartdiet">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".android.SmartDietApplication"
@@ -20,10 +20,17 @@
             android:theme="@style/LoginScreenTheme"/>
 
         <activity
-            android:name=".ui.activities.IngredientsActivity"
-            android:screenOrientation="portrait">
+            android:name=".ui.activities.GroceriesActivity"
+            android:screenOrientation="portrait"/>
 
-        </activity>
+        <activity
+            android:name=".ui.activities.RecipesActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.activities.RecipeDetailsActivity"
+            android:screenOrientation="portrait" />
+
 
         <activity
             android:name=".ui.activities.StartActivity"

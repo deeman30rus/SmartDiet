@@ -1,9 +1,13 @@
 package com.delizarov.smartdiet.utils;
 
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.support.v7.graphics.Palette;
+
 public class ColorUtils {
 
-    private static final int COLORTS[] = {
+    private static final int COLORS[] = {
             0xFFE57373, // red_300
             0xFFF44336, // red 500
             0xFFD32F2F, // red 700
@@ -58,6 +62,66 @@ public class ColorUtils {
 
         int index = str.hashCode() < 0 ? -str.hashCode() : str.hashCode();
 
-        return COLORTS[index % COLORTS.length];
+        return COLORS[index % COLORS.length];
+    }
+
+    public static int nearestMaterialColor(Bitmap bmp) {
+
+        Palette palette = Palette.generate(bmp);
+
+        int color = palette.getVibrantColor(0);
+
+        return nearestToShade500(color);
+    }
+
+    public static int[] getShadePalette() {
+        return null;
+    }
+
+    private static int nearestToShade500(int color) {
+
+        double angles[] = new double[COLORS.length / 3];
+        int colors[] = new int[COLORS.length / 3];
+
+
+        double main = new Color(color).angle();
+
+        for (int i = 1; i < COLORS.length; i += 3) {
+            colors[i / 3] = COLORS[i];
+            angles[i / 3] = new Color(COLORS[i]).angle() - main;
+        }
+
+        int min = 0;
+
+        for (int i = 1; i < angles.length; ++i)
+            if (angles[min] > angles[i])
+                min = i;
+
+        return colors[min];
+    }
+
+    private static class Color {
+
+        private static final double COS30 = Math.sqrt(3) / 2;
+        private static final double SIN30 = 0.5;
+
+        private final int mRed;
+        private final int mBlue;
+        private final int mGreen;
+
+        public Color(int color) {
+
+            mRed = color & 0xff0000;
+            mGreen = color & 0xff00;
+            mBlue = color & 0xff;
+        }
+
+        public double angle() {
+
+            double x = mRed * COS30 - mBlue * COS30;
+            double y = mGreen - mRed * SIN30 - mBlue * SIN30;
+
+            return Math.atan2(y, x);
+        }
     }
 }

@@ -18,7 +18,7 @@
             android:id="@+id/ingredient_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dialog_ingredient_details_name"
+            android:hint="@string/dialog_grocery_details_name"
             android:inputType="textMultiLine"
             android:maxLines="1"/>
 

@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <FrameLayout
-        android:id="@+id/ingredients_list"
+        android:id="@+id/groceries_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,7 +27,7 @@
     </FrameLayout>
 
     <com.github.clans.fab.FloatingActionButton
-        android:id="@+id/add_ingredient"
+        android:id="@+id/add_grocery"
         fab:fab_colorNormal="@color/app_primary"
         fab:fab_colorPressed="@color/app_primary_pressed"
         fab:fab_colorRipple="@color/app_ripple"
@@ -36,7 +36,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/icon_add"
-        app:layout_constraintBottom_toBottomOf="@+id/ingredients_list"
+        app:layout_constraintBottom_toBottomOf="@+id/groceries_list"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

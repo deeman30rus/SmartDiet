@@ -6,5 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="?android:actionBarSize"
     android:background="@color/colorPrimaryDark"
-    app:theme="@style/IngredientsToolbarStyle"
+    app:theme="@style/GroceriesToolbarStyle"
     />
